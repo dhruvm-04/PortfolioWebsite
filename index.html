@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dhruv Maheshwari Portfolio</title>
+    <br>
+    <meta
+      name="description"
+      content="Home - Dhruv Maheshwari, Computer Science portfolio featuring AI, speech, and full-stack projects."
+    />
+    <link rel="icon" type="image/svg+xml" href="public/favicon-ace.svg" />
+    <link rel="apple-touch-icon" href="public/favicon-ace.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="single" class="is-splash-active">
+    <div class="bg-base" aria-hidden="true"></div>
+    <div class="grain-layer" aria-hidden="true"></div>
+    <canvas id="constellation"></canvas>
+    <div class="splash" id="splash" aria-hidden="true">
+      <div class="splash-card">
+        <img src="public/favicon-ace.svg" alt="" aria-hidden="true" />
+      </div>
+    </div>
+
+    <header class="topbar">
+      <br>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7.2 7.2 0 0 0 9.8 9.8Z" />
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2" />
+          <path d="M12 2.3v2.4M12 19.3v2.4M21.7 12h-2.4M4.7 12H2.3M18.8 5.2l-1.7 1.7M6.9 17.1l-1.7 1.7M18.8 18.8l-1.7-1.7M6.9 6.9 5.2 5.2" />
+        </svg>
+      </button>
+    </header>
+
+    <main class="layout">
+      <aside class="left-pane">
+        <div class="identity-block">
+          <div class="identity-header">
+            <div>
+              <h1>Dhruv Maheshwari</h1>
+              <p class="role">Computer Science Student · AI and Full-Stack Developer</p>
+            </div>
+          </div>
+          <p class="intro">
+            B.Tech CSE student at PES University building multilingual AI systems, secure networking tools, and practical data-driven products.
+          </p>
+        </div>
+        <br>
+        <nav class="side-nav" aria-label="Main navigation tabs">
+          <button type="button" class="tab-btn is-active" data-tab="home">Home</button>
+          <button type="button" class="tab-btn" data-tab="about">About</button>
+          <button type="button" class="tab-btn" data-tab="experience">Experience</button>
+          <button type="button" class="tab-btn" data-tab="projects">Projects</button>
+        </nav>
+
+        <ul class="socials" aria-label="Contact links">
+          <li>
+            <a href="mailto:dhruv.maheshwari1104@gmail.com" target="_blank" rel="noreferrer" aria-label="Email">
+              <span class="visually-hidden">Email</span>
+              <img src="public/gmailicon.svg" alt="" aria-hidden="true" class="social-icon" />
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/dhruvmaheshwari1/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <span class="visually-hidden">LinkedIn</span>
+              <img src="public/linkedinicon.svg" alt="" aria-hidden="true" class="social-icon" />
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/dhruvm-04" target="_blank" rel="noreferrer" aria-label="GitHub">
+              <span class="visually-hidden">GitHub</span>
+              <img src="public/githubicon.svg" alt="" aria-hidden="true" class="social-icon" />
+            </a>
+          </li>
+          <li>
+            <a href="public/Resume_DhruvMaheshwari.pdf" aria-label="Resume" target="_blank" rel="noreferrer">
+              <span class="visually-hidden">Resume</span>
+              <img src="public/resumeicon.svg" alt="" aria-hidden="true" class="social-icon" />
+            </a>
+          </li>
+        </ul>
+        <br>
+      </aside>
+
+      <section class="right-pane" id="rightPane">
+        <div class="panel-host" id="tabPanelHost" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
