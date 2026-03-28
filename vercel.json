@@ -1,13 +1,7 @@
 {
   "buildCommand": "true",
   "installCommand": "true",
-  "outputDirectory": ".",
-  "cleanUrls": false,
-  "trailingSlash": false,
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ]
+  "public": ".",
+  "cleanUrls": true,
+  "trailingSlash": false
 }
