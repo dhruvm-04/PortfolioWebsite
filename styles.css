@@ -887,6 +887,9 @@ h1 {
   bottom: 0;
   left: 25%;
   right: 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
   transform-origin: 50% 100%;
   padding: 1.05rem 1.1rem 1.2rem;
   border-radius: 1rem;
@@ -910,6 +913,7 @@ h1 {
   opacity: 1;
   transform: translateX(-35%) translateY(2.5%) scale(0.9) rotate(-9.5deg);
   filter: none;
+  overflow: hidden;
   pointer-events: none;
 }
 
@@ -918,6 +922,7 @@ h1 {
   opacity: 1;
   transform: translateX(35%) translateY(2.5%) scale(0.9) rotate(9.5deg);
   filter: none;
+  overflow: hidden;
   pointer-events: none;
 }
 
@@ -925,6 +930,7 @@ h1 {
   z-index: 2;
   opacity: 1;
   transform: translateX(-48%) translateY(5.5%) scale(0.82) rotate(-15deg);
+  overflow: hidden;
   pointer-events: none;
 }
 
@@ -932,7 +938,18 @@ h1 {
   z-index: 2;
   opacity: 1;
   transform: translateX(48%) translateY(5.5%) scale(0.82) rotate(15deg);
+  overflow: hidden;
   pointer-events: none;
+}
+
+.project-card p {
+  margin: 0.55rem 0 0;
+  color: var(--text-muted);
+  line-height: 1.64;
+}
+
+.project-card .tags {
+  margin-top: auto;
 }
 
 .project-item {

@@ -222,6 +222,23 @@ const TAB_CONTENT = {
 
             <article class="project-card" data-project-card>
               <div class="project-head">
+                <h3>PES University EC Campus Virtual Tour · Interactive 3D Walkthrough</h3>
+                <div class="project-actions" aria-label="PES University EC Campus Virtual Tour links">
+                  <a class="project-icon-link" href="https://github.com/dhruvm-04/VirtualTour" aria-label="PES University EC Campus Virtual Tour GitHub repository">
+                    <img src="public/githubicon.svg" alt="" aria-hidden="true" class="social-icon" />
+                  </a>
+                  <a class="project-icon-link" href="https://pes-virtual-tour.vercel.app/" aria-label="PES University EC Campus Virtual Tour deployed website">
+                    <img src="public/websiteicon.svg" alt="" aria-hidden="true" class="social-icon" />
+                  </a>
+                </div>
+              </div>
+              <p>Built an interactive Three.js digital twin of the PES University EC Engineering Block with first-person traversal, interior exploration, teleport hotspots, and guided navigation flow.</p>
+              <p>Implemented platform-specific controls including pointer-lock + WASD for desktop and swipe-look + virtual joystick movement for mobile, with EXR-based environment lighting and fullscreen support.</p>
+              <ul class="tags"><li>Three.js</li><li>GLB Models</li><li>EXR Lighting</li><li>Pointer Lock</li><li>Mobile Joystick</li><li>Digital Twin</li></ul>
+            </article>
+
+            <article class="project-card" data-project-card>
+              <div class="project-head">
                 <h3>MusiConvert · Secure Playlist Conversion and Sharing (Jun 2025)</h3>
                 <div class="project-actions" aria-label="MusiConvert links">
                   <a class="project-icon-link" href="https://github.com/dhruvm-04/MusiConvert" aria-label="MusiConvert GitHub repository">
@@ -244,20 +261,6 @@ const TAB_CONTENT = {
               </div>
               <p>Designed a deep learning financial time-series forecasting tool to improve short-interval predictive performance with practical model experimentation and data preprocessing workflows.</p>
               <ul class="tags"><li>TensorFlow</li><li>scikit-learn</li><li>Pandas</li><li>NumPy</li><li>Gradio</li></ul>
-            </article>
-
-            <article class="project-card" data-project-card>
-              <div class="project-head">
-                <h3>PES University EC Campus Virtual Tour · Interactive 3D Walkthrough</h3>
-                <div class="project-actions" aria-label="PES University EC Campus Virtual Tour links">
-                  <a class="project-icon-link" href="https://github.com/dhruvm-04/VirtualTour" aria-label="PES University EC Campus Virtual Tour GitHub repository">
-                    <img src="public/githubicon.svg" alt="https://pes-virtual-tour.vercel.app/" aria-hidden="true" class="social-icon" />
-                  </a>
-                </div>
-              </div>
-              <p>Built an interactive Three.js digital twin of the PES University EC Engineering Block with first-person traversal, interior exploration, teleport hotspots, and guided navigation flow.</p>
-              <p>Implemented platform-specific controls including pointer-lock + WASD for desktop and swipe-look + virtual joystick movement for mobile, with EXR-based environment lighting and fullscreen support.</p>
-              <ul class="tags"><li>Three.js</li><li>GLB Models</li><li>EXR Lighting</li><li>Pointer Lock</li><li>Mobile Joystick</li><li>Digital Twin</li></ul>
             </article>
           </div>
         </div>
