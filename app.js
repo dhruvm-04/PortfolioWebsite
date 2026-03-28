@@ -129,7 +129,7 @@ const TAB_CONTENT = {
           <article class="cert-node cert-node-1">
             <div class="cert-node-head">
               <div class="cert-meta-right">
-                <a class="project-icon-link" href="" aria-label="Google IT Automation with Python credential website">
+                <a class="project-icon-link" href="https://www.coursera.org/account/accomplishments/verify/A5PRE5DF9R39" aria-label="Google IT Automation with Python credential website">
                 <img src="public/websiteicon.svg" alt="" aria-hidden="true" class="social-icon" />
                 </a>
                 <p class="cert-date">Jun 2023</p>
@@ -142,7 +142,7 @@ const TAB_CONTENT = {
           <article class="cert-node cert-node-2">
             <div class="cert-node-head">
               <div class="cert-meta-right">
-                <a class="project-icon-link" href="" aria-label="Introduction to AI credential website">
+                <a class="project-icon-link" href="https://certificates.mooc.fi/validate/ubs53o2vunn" aria-label="Introduction to AI credential website">
                 <img src="public/websiteicon.svg" alt="" aria-hidden="true" class="social-icon" />
                 </a>
                 <p class="cert-date">Jul 2023</p>
@@ -155,7 +155,7 @@ const TAB_CONTENT = {
           <article class="cert-node cert-node-3">
             <div class="cert-node-head">
               <div class="cert-meta-right">
-                <a class="project-icon-link" href="" aria-label="Data Science with Python credential website">
+                <a class="project-icon-link" href="https://www.linkedin.com/in/dhruvmaheshwari1/details/certifications/" aria-label="Data Science with Python credential website">
                 <img src="public/websiteicon.svg" alt="" aria-hidden="true" class="social-icon" />
                 </a>
                 <p class="cert-date">Aug 2023</p>
@@ -168,7 +168,7 @@ const TAB_CONTENT = {
           <article class="cert-node cert-node-4">
             <div class="cert-node-head">
               <div class="cert-meta-right">
-                <a class="project-icon-link" href="" aria-label="Artificial Intelligence Fundamentals credential website">
+                <a class="project-icon-link" href="https://www.credly.com/badges/dbd7e0e9-3770-499c-afb5-7590de3990f8/print" aria-label="Artificial Intelligence Fundamentals credential website">
                 <img src="public/websiteicon.svg" alt="" aria-hidden="true" class="social-icon" />
                 </a>
                 <p class="cert-date">Jan 2025</p>
@@ -181,7 +181,7 @@ const TAB_CONTENT = {
           <article class="cert-node cert-node-5">
             <div class="cert-node-head">
               <div class="cert-meta-right">
-                <a class="project-icon-link" href="" aria-label="AWS Foundations of Prompt Engineering credential website">
+                <a class="project-icon-link" href="https://www.linkedin.com/in/dhruvmaheshwari1/details/certifications/" aria-label="AWS Foundations of Prompt Engineering credential website">
                 <img src="public/websiteicon.svg" alt="" aria-hidden="true" class="social-icon" />
                 </a>
                 <p class="cert-date">Mar 2025</p>
@@ -210,11 +210,8 @@ const TAB_CONTENT = {
               <div class="project-head">
                 <h3>EchoLang · Real-Time Multilingual Speech Translator (Jul 2025)</h3>
                 <div class="project-actions" aria-label="EchoLang links">
-                  <a class="project-icon-link" href="" aria-label="EchoLang GitHub repository">
+                  <a class="project-icon-link" href="https://github.com/dhruvm-04/EchoLang" aria-label="EchoLang GitHub repository">
                     <img src="public/githubicon.svg" alt="" aria-hidden="true" class="social-icon" />
-                  </a>
-                  <a class="project-icon-link" href="" aria-label="EchoLang deployed website">
-                    <img src="public/websiteicon.svg" alt="" aria-hidden="true" class="social-icon" />
                   </a>
                 </div>
               </div>
@@ -227,11 +224,8 @@ const TAB_CONTENT = {
               <div class="project-head">
                 <h3>MusiConvert · Secure Playlist Conversion and Sharing (Jun 2025)</h3>
                 <div class="project-actions" aria-label="MusiConvert links">
-                  <a class="project-icon-link" href="" aria-label="MusiConvert GitHub repository">
+                  <a class="project-icon-link" href="https://github.com/dhruvm-04/MusiConvert" aria-label="MusiConvert GitHub repository">
                     <img src="public/githubicon.svg" alt="" aria-hidden="true" class="social-icon" />
-                  </a>
-                  <a class="project-icon-link" href="" aria-label="MusiConvert deployed website">
-                    <img src="public/websiteicon.svg" alt="" aria-hidden="true" class="social-icon" />
                   </a>
                 </div>
               </div>
@@ -243,11 +237,8 @@ const TAB_CONTENT = {
               <div class="project-head">
                 <h3>StockPrediction · Short-Interval Forecasting (Oct 2025)</h3>
                 <div class="project-actions" aria-label="StockPrediction links">
-                  <a class="project-icon-link" href="" aria-label="StockPrediction GitHub repository">
+                  <a class="project-icon-link" href="https://github.com/dhruvm-04/StockPredictionLSTM" aria-label="StockPrediction GitHub repository">
                     <img src="public/githubicon.svg" alt="" aria-hidden="true" class="social-icon" />
-                  </a>
-                  <a class="project-icon-link" href="" aria-label="StockPrediction deployed website">
-                    <img src="public/websiteicon.svg" alt="" aria-hidden="true" class="social-icon" />
                   </a>
                 </div>
               </div>
