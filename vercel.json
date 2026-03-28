@@ -1,7 +1,1 @@
-{
-  "buildCommand": "true",
-  "installCommand": "true",
-  "public": ".",
-  "cleanUrls": true,
-  "trailingSlash": false
-}
+{}
