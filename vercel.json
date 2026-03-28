@@ -1,8 +1,6 @@
 {
+  "outputDirectory": ".",
   "rewrites": [
-    {
-      "source": "/(?!(?:favicon|resume|github|linkedin|gmail|website|.*\\.css|.*\\.js|.*\\.svg|.*\\.pdf).*)",
-      "destination": "/index.html"
-    }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
