@@ -1,21 +1,13 @@
 {
-  "cleanUrls": true,
+  "buildCommand": "true",
+  "installCommand": "true",
+  "outputDirectory": ".",
+  "cleanUrls": false,
   "trailingSlash": false,
-  "headers": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/(?!.*\\.)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
