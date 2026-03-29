@@ -222,7 +222,7 @@ const TAB_CONTENT = {
 
             <article class="project-card" data-project-card>
               <div class="project-head">
-                <h3>PES University EC Campus Virtual Tour · Interactive 3D Walkthrough</h3>
+                <h3>PES University Campus Virtual Tour · Interactive 3D Walkthrough</h3>
                 <div class="project-actions" aria-label="PES University EC Campus Virtual Tour links">
                   <a class="project-icon-link" href="https://github.com/dhruvm-04/VirtualTour" aria-label="PES University EC Campus Virtual Tour GitHub repository">
                     <img src="public/githubicon.svg" alt="" aria-hidden="true" class="social-icon" />
@@ -232,8 +232,7 @@ const TAB_CONTENT = {
                   </a>
                 </div>
               </div>
-              <p>Built an interactive Three.js digital twin of the PES University EC Engineering Block with first-person traversal, interior exploration, teleport hotspots, and guided navigation flow.</p>
-              <p>Implemented platform-specific controls including pointer-lock + WASD for desktop and swipe-look + virtual joystick movement for mobile, with EXR-based environment lighting and fullscreen support.</p>
+              <p>Built an interactive Three.js digital twin of the PES University EC Engineering Block with first-person traversal, interior exploration, teleport hotspots, and guided navigation flow. Implemented platform-specific controls including pointer-lock + WASD for desktop and swipe-look + virtual joystick movement for mobile, with EXR-based environment lighting and fullscreen support.</p>
               <ul class="tags"><li>Three.js</li><li>GLB Models</li><li>EXR Lighting</li><li>Pointer Lock</li><li>Mobile Joystick</li><li>Digital Twin</li></ul>
             </article>
 
@@ -263,6 +262,53 @@ const TAB_CONTENT = {
               <ul class="tags"><li>TensorFlow</li><li>scikit-learn</li><li>Pandas</li><li>NumPy</li><li>Gradio</li></ul>
             </article>
           </div>
+        </div>
+      </section>
+    `,
+  },
+  extracurricular: {
+    heroLabel: "Extracurricular",
+    heroTitle: "Creative work beyond engineering: photography, 3D art, drumming and automotive culture.",
+    heroBody:
+      "Outside academics and projects, I spend my time on drumming, photography, 3D art, and automotive culture. These interests shape how I think about composition, motion, and storytelling.",
+    body: `
+      <section class="section">
+        <div class="extra-tabs" data-extra-tabs>
+          <div class="extra-tab-nav" role="tablist" aria-label="Extracurricular subtabs">
+            <button class="extra-tab-btn is-active" type="button" role="tab" aria-selected="true" data-extra-target="profile">About Me</button>
+            <button class="extra-tab-btn" type="button" role="tab" aria-selected="false" data-extra-target="photography">Photography Showcase</button>
+            <a class="project-icon-link extra-drive-link" href="https://drive.google.com/drive/u/0/folders/1vbbEK7c75QB5ycgSYwX32Vawv56_W5b4" aria-label="Photography portfolio drive">
+              <img src="public/websiteicon.svg" alt="" aria-hidden="true" class="social-icon" />
+            </a>
+          </div>
+
+          <section class="extra-panel is-active" data-extra-panel="profile" role="tabpanel" aria-label="About Me">
+            <div class="hobby-pills" data-hobby-pills>
+              <button type="button" class="hobby-pill is-active" data-hobby="drummer">Drummer</button>
+              <button type="button" class="hobby-pill" data-hobby="photographer">Photographer</button>
+              <button type="button" class="hobby-pill" data-hobby="artist3d">3D Artist</button>
+              <button type="button" class="hobby-pill" data-hobby="automotive">Automotives</button>
+            </div>
+            <article class="hobby-spotlight" data-hobby-spotlight>
+              <h3>Drummer</h3>
+              <p>I enjoy playing drums as a creative reset and a discipline in timing, consistency, and control.</p>
+            </article>
+          </section>
+
+          <section class="extra-panel" data-extra-panel="photography" role="tabpanel" aria-label="Photography Showcase">
+            <div class="photo-mosaic" data-photo-mosaic>
+              <div class="photo-mosaic-grid" data-photo-grid></div>
+              <div class="photo-more-wrap" data-photo-more-wrap>
+                <button type="button" class="photo-more-btn" data-photo-more>Show more</button>
+              </div>
+              <div class="photo-lightbox" data-photo-lightbox aria-hidden="true">
+                <button type="button" class="photo-lightbox-nav photo-lightbox-prev" data-photo-lightbox-prev aria-label="Previous image">&#8592;</button>
+                <button type="button" class="photo-lightbox-nav photo-lightbox-next" data-photo-lightbox-next aria-label="Next image">&#8594;</button>
+                <button type="button" class="photo-lightbox-close" data-photo-close aria-label="Close full-size image">&#10005;</button>
+                <img src="" alt="" data-photo-lightbox-image />
+              </div>
+            </div>
+          </section>
         </div>
       </section>
     `,
@@ -487,6 +533,304 @@ function initProjectStack() {
   };
 }
 
+function initExtracurricularSubtabs() {
+  if (!panelHost) {
+    return;
+  }
+
+  const rootTabs = panelHost.querySelector("[data-extra-tabs]");
+  if (!rootTabs) {
+    return;
+  }
+
+  const buttons = Array.from(rootTabs.querySelectorAll("[data-extra-target]"));
+  const panels = Array.from(rootTabs.querySelectorAll("[data-extra-panel]"));
+
+  const setActive = (target) => {
+    buttons.forEach((button) => {
+      const active = button.dataset.extraTarget === target;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-selected", active ? "true" : "false");
+    });
+
+    panels.forEach((panel) => {
+      panel.classList.toggle("is-active", panel.dataset.extraPanel === target);
+    });
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const target = button.dataset.extraTarget;
+      if (target) {
+        setActive(target);
+      }
+    });
+  });
+
+  const hobbyButtons = Array.from(rootTabs.querySelectorAll("[data-hobby]"));
+  const hobbySpotlight = rootTabs.querySelector("[data-hobby-spotlight]");
+  const hobbyDetails = {
+    photographer: {
+      title: "Photography",
+      body: "I like capturing street scenes, architecture, and automotive moments with attention to light and framing.",
+    },
+    artist3d: {
+      title: "3D Modelling & Art",
+      body: "I experiment with 3D environments and visual scenes, combining technical tools with artistic composition.",
+    },
+    drummer: {
+      title: "Drums",
+      body: "I enjoy playing drums as a creative reset and a discipline in timing, consistency, and control.",
+    },
+    automotive: {
+      title: "Automotive Enthusiast",
+      body: "I am deeply into automotive design and engineering, from body language and aerodynamics to driving culture.",
+    },
+    design: {
+      title: "Design",
+      body: "I am passionate about creating visually appealing interfaces and experiences, combining aesthetics with functionality.",
+    }
+  };
+
+  const setHobby = (key) => {
+    const detail = hobbyDetails[key];
+    if (!detail || !hobbySpotlight) {
+      return;
+    }
+
+    hobbyButtons.forEach((button) => {
+      button.classList.toggle("is-active", button.dataset.hobby === key);
+    });
+
+    hobbySpotlight.innerHTML = `<h3>${detail.title}</h3><p>${detail.body}</p>`;
+  };
+
+  hobbyButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const key = button.dataset.hobby;
+      if (key) {
+        setHobby(key);
+      }
+    });
+  });
+
+  const mosaicRoot = rootTabs.querySelector("[data-photo-mosaic]");
+  const supportedPhotoExtensions = ["jpg", "jpeg", "png", "webp", "avif"];
+  const photoGrid = mosaicRoot?.querySelector("[data-photo-grid]");
+  const moreWrap = mosaicRoot?.querySelector("[data-photo-more-wrap]");
+  const moreButton = mosaicRoot?.querySelector("[data-photo-more]");
+  const lightbox = mosaicRoot?.querySelector("[data-photo-lightbox]");
+  const lightboxImage = mosaicRoot?.querySelector("[data-photo-lightbox-image]");
+  const lightboxClose = mosaicRoot?.querySelector("[data-photo-close]");
+  const lightboxPrev = mosaicRoot?.querySelector("[data-photo-lightbox-prev]");
+  const lightboxNext = mosaicRoot?.querySelector("[data-photo-lightbox-next]");
+  const photoBaseNames = Array.from({ length: 40 }, (_, index) => `public/photo${String(index + 1).padStart(2, "0")}`);
+  const initialPhotoCount = 10;
+  const photoBatchCount = 10;
+  let renderedPhotoCount = 0;
+  let photoItems = [];
+  let activeLightboxIndex = -1;
+
+  const prepareImageItem = (item, index) => {
+    item.style.setProperty("--photo-stagger", `${index * 40}ms`);
+
+    const image = item.querySelector("img[data-photo-base]");
+    const base = image?.dataset.photoBase;
+    if (!image || !base) {
+      return;
+    }
+
+    let extensionIndex = 0;
+
+    const tryNextExtension = () => {
+      if (extensionIndex >= supportedPhotoExtensions.length) {
+        image.removeAttribute("src");
+        image.style.opacity = "0";
+        item.classList.add("is-photo-ready");
+        return;
+      }
+
+      image.src = `${base}.${supportedPhotoExtensions[extensionIndex]}`;
+      extensionIndex += 1;
+    };
+
+    image.addEventListener("load", () => {
+      item.classList.add("is-photo-ready");
+    });
+    image.addEventListener("error", tryNextExtension);
+    tryNextExtension();
+  };
+
+  const buildPhotoCard = (baseName, number) => {
+    const article = document.createElement("article");
+    article.className = "photo-mosaic-item";
+    article.dataset.photoItem = "";
+
+    const image = document.createElement("img");
+    image.dataset.photoBase = baseName;
+    image.alt = `Photography upload ${number}`;
+    image.loading = "lazy";
+    image.decoding = "async";
+    article.appendChild(image);
+
+    return article;
+  };
+
+  const renderNextPhotoBatch = () => {
+    if (!photoGrid) {
+      return;
+    }
+
+    const nextCount = Math.min(photoBaseNames.length, renderedPhotoCount + photoBatchCount);
+    for (let i = renderedPhotoCount; i < nextCount; i += 1) {
+      const card = buildPhotoCard(photoBaseNames[i], i + 1);
+      photoGrid.appendChild(card);
+      photoItems.push(card);
+      prepareImageItem(card, i);
+      revealObserver.observe(card);
+    }
+    renderedPhotoCount = nextCount;
+
+    if (moreWrap) {
+      moreWrap.classList.toggle("is-hidden", renderedPhotoCount >= photoBaseNames.length);
+    }
+  };
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 },
+  );
+
+  if (photoGrid) {
+    renderedPhotoCount = 0;
+    photoItems = [];
+    const startCount = Math.min(initialPhotoCount, photoBaseNames.length);
+    for (let i = 0; i < startCount; i += 1) {
+      const card = buildPhotoCard(photoBaseNames[i], i + 1);
+      photoGrid.appendChild(card);
+      photoItems.push(card);
+      prepareImageItem(card, i);
+      revealObserver.observe(card);
+    }
+    renderedPhotoCount = startCount;
+
+    if (moreWrap) {
+      moreWrap.classList.toggle("is-hidden", renderedPhotoCount >= photoBaseNames.length);
+    }
+    moreButton?.addEventListener("click", renderNextPhotoBatch);
+  }
+
+  if (mosaicRoot && photoGrid && photoItems.length > 0) {
+    mosaicRoot.addEventListener("mouseover", () => {
+      mosaicRoot.classList.add("is-hovering");
+    });
+    mosaicRoot.addEventListener("mouseleave", () => {
+      mosaicRoot.classList.remove("is-hovering");
+    });
+
+    const setLightboxImageByIndex = (index) => {
+      if (!lightboxImage) {
+        return;
+      }
+
+      const validItems = Array.from(photoGrid.querySelectorAll("[data-photo-item]")).filter((item) => {
+        const image = item.querySelector("img");
+        return Boolean(image && image.src);
+      });
+
+      if (validItems.length === 0) {
+        return;
+      }
+
+      activeLightboxIndex = getWrappedIndex(index, validItems.length);
+      const activeImage = validItems[activeLightboxIndex]?.querySelector("img");
+      if (!activeImage) {
+        return;
+      }
+
+      lightboxImage.src = activeImage.currentSrc || activeImage.src;
+      lightboxImage.alt = activeImage.alt || "Full-size photograph";
+    };
+
+    const openLightbox = (source, index) => {
+      if (!lightbox || !lightboxImage || !source) {
+        return;
+      }
+
+      setLightboxImageByIndex(index);
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("is-photo-lightbox-open");
+    };
+
+    const closeLightbox = () => {
+      if (!lightbox || !lightboxImage) {
+        return;
+      }
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImage.src = "";
+      activeLightboxIndex = -1;
+      document.body.classList.remove("is-photo-lightbox-open");
+    };
+
+    const stepLightbox = (direction) => {
+      setLightboxImageByIndex(activeLightboxIndex + direction);
+    };
+
+    photoGrid.addEventListener("click", (event) => {
+      const item = event.target instanceof Element ? event.target.closest("[data-photo-item]") : null;
+      if (!item) {
+        return;
+      }
+      const image = item.querySelector("img");
+      if (image && image.src) {
+        const validItems = Array.from(photoGrid.querySelectorAll("[data-photo-item]")).filter((entry) => {
+          const img = entry.querySelector("img");
+          return Boolean(img && img.src);
+        });
+        const validIndex = validItems.indexOf(item);
+        openLightbox(image, validIndex >= 0 ? validIndex : 0);
+      }
+    });
+
+    lightboxClose?.addEventListener("click", closeLightbox);
+    lightboxPrev?.addEventListener("click", () => stepLightbox(-1));
+    lightboxNext?.addEventListener("click", () => stepLightbox(1));
+    lightbox?.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (lightbox?.classList.contains("is-open")) {
+        if (event.key === "Escape") {
+          closeLightbox();
+        }
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          stepLightbox(-1);
+        }
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          stepLightbox(1);
+        }
+      }
+    });
+  }
+
+  setActive("profile");
+  setHobby("drummer");
+}
+
 function renderTabPanel(tabKey, animate = true) {
   const content = TAB_CONTENT[tabKey];
   if (!content || !panelHost) {
@@ -514,6 +858,7 @@ function renderTabPanel(tabKey, animate = true) {
     panelHost.appendChild(panel);
     resetPaneScroll();
     initProjectStack();
+    initExtracurricularSubtabs();
     tabAnimating = false;
     return;
   }
@@ -544,6 +889,7 @@ function renderTabPanel(tabKey, animate = true) {
   }, PANEL_ANIMATION_MS + 30);
 
   initProjectStack();
+  initExtracurricularSubtabs();
 }
 
 function setActiveTab(tabKey, animate = true) {
@@ -554,6 +900,13 @@ function setActiveTab(tabKey, animate = true) {
   if (animate) {
     tabAnimating = true;
   }
+
+  const targetTheme = tabKey === "extracurricular" ? "light" : "dark";
+  document.body.classList.add("is-theme-fading");
+  applyTheme(targetTheme);
+  window.setTimeout(() => {
+    document.body.classList.remove("is-theme-fading");
+  }, 320);
 
   currentTab = tabKey;
   resetPaneScroll();
