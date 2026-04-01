@@ -1,10 +1,10 @@
 :root {
-  --bg-0: #2b2b33;
-  --bg-1: #1f2028;
-  --bg-orb-a: rgba(84, 113, 190, 0.25);
-  --bg-orb-b: rgba(53, 68, 118, 0.2);
+  --bg-0: #171922;
+  --bg-1: #0f1118;
+  --bg-orb-a: rgba(78, 108, 184, 0.2);
+  --bg-orb-b: rgba(39, 53, 98, 0.16);
   --text-main: #d6dbea;
-  --text-muted: #a4abc1;
+  --text-muted: #dee1ea;
   --line-soft: rgba(171, 185, 220, 0.24);
   --line-strong: rgba(200, 214, 246, 0.45);
   --accent: #8fb1ff;
@@ -24,7 +24,7 @@ html[data-theme="light"] {
   --bg-orb-a: rgba(237, 170, 121, 0.26);
   --bg-orb-b: rgba(191, 183, 169, 0.22);
   --text-main: #2b2824;
-  --text-muted: #625b52;
+  --text-muted: #41382b;
   --line-soft: rgba(146, 127, 104, 0.25);
   --line-strong: rgba(171, 129, 90, 0.42);
   --accent: #cf8647;
@@ -95,6 +95,7 @@ body.is-theme-fading * {
 #constellation {
   z-index: 2;
   opacity: 0.84;
+  will-change: transform;
 }
 
 .splash {
@@ -286,7 +287,7 @@ h1 {
   font-family: "Syne", "Segoe UI", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  font-size: 0.9rem;
+  font-size:1rem;
   font-weight: 500;
   position: relative;
   width: fit-content;
@@ -393,6 +394,15 @@ h1 {
   min-height: calc(100vh - 7.6rem);
 }
 
+.sections-flow {
+  width: 100%;
+}
+
+.section-panel {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
 .tab-panel {
   width: 100%;
 }
@@ -453,11 +463,12 @@ h1 {
 
 .eyebrow {
   margin: 0 0 0.8rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-family: "Syne", "Segoe UI", sans-serif;
   letter-spacing: 0.17em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--text-main) 92%, #ffffff 8%);
-  font-weight: 800;
+  font-weight: 300;
 }
 
 .hero h2 {
@@ -874,10 +885,10 @@ h1 {
 
 .project-stack-viewport {
   position: relative;
-  height: min(24rem, calc(100vh - 20rem));
-  min-height: 20rem;
+  height: min(30rem, calc(100vh - 12rem));
+  min-height: 26rem;
   perspective: 1400px;
-  overflow: hidden;
+  overflow: visible;
   outline: none;
 }
 
@@ -885,12 +896,13 @@ h1 {
   position: relative;
   width: 100%;
   height: 100%;
+  padding-bottom: 0.8rem;
 }
 
 .project-card {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 0.3rem;
+  bottom: 0.3rem;
   left: 25%;
   right: 25%;
   display: flex;
@@ -1131,6 +1143,7 @@ h1 {
   width: 100%;
   height: auto;
   display: block;
+  transform: translateZ(0);
 }
 
 .photo-mosaic-item::after {
@@ -1205,11 +1218,13 @@ h1 {
 .photo-lightbox {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: 60;
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 1.2rem;
+  padding: 0;
+  overflow: hidden;
+  touch-action: none;
   background: rgba(8, 10, 16, 0.8);
   backdrop-filter: blur(5px);
 }
@@ -1219,11 +1234,12 @@ h1 {
 }
 
 .photo-lightbox img {
-  max-width: min(94vw, 1200px);
-  max-height: 88vh;
+  max-width: 96vw;
+  max-height: 96vh;
   width: auto;
   height: auto;
-  border-radius: 0.315rem;
+  object-fit: contain;
+  border-radius: 0;
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38);
 }
 
@@ -1266,6 +1282,10 @@ h1 {
 }
 
 body.is-photo-lightbox-open {
+  overflow: hidden;
+}
+
+body.is-photo-lightbox-open .right-pane {
   overflow: hidden;
 }
 
@@ -1533,7 +1553,8 @@ body.is-photo-lightbox-open {
   }
 
   .project-stack-viewport {
-    height: min(22rem, calc(100vh - 14rem));
+    height: min(24rem, calc(100vh - 11rem));
+    min-height: 21rem;
   }
 
   .project-card {

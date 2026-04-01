@@ -7,7 +7,7 @@ const splashCard = splash ? splash.querySelector(".splash-card") : null;
 const tabButtons = Array.from(document.querySelectorAll(".tab-btn[data-tab]"));
 const panelHost = document.getElementById("tabPanelHost");
 const rightPane = document.getElementById("rightPane");
-const PANEL_ANIMATION_MS = 720;
+const leftPane = document.querySelector(".left-pane");
 
 let width = 0;
 let height = 0;
@@ -15,11 +15,9 @@ let dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
 let points = [];
 let mouse = { x: -9999, y: -9999 };
 let mouseActiveUntil = 0;
-let currentTab = "home";
-let tabAnimating = false;
-let smoothScrollTarget = 0;
-let smoothScrollRunning = false;
-let smoothScrollFrameId = null;
+let sectionKeys = [];
+let scrollTicking = false;
+let starfieldFrameId = null;
 let projectStackCleanup = null;
 let palette = {
   line: "205, 219, 255",
@@ -27,6 +25,30 @@ let palette = {
   dot: "245, 249, 255",
 };
 const reducedMotionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+const LOW_POWER_FPS = 18;
+const NODE_DENSITY_MULTIPLIER = 1.3;
+
+function getStarfieldProfile() {
+  const cores = navigator.hardwareConcurrency || 4;
+  const memory = navigator.deviceMemory || 4;
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const saveData = Boolean(connection?.saveData);
+  const effectiveType = (connection?.effectiveType || "").toLowerCase();
+  const slowNetwork = effectiveType.includes("2g") || effectiveType.includes("3g");
+
+  if (saveData || slowNetwork || cores <= 4 || memory <= 4) {
+    return { nodeScale: 0.85, fpsCap: 45 };
+  }
+
+  if (cores >= 8 && memory >= 8) {
+    return { nodeScale: 1.35, fpsCap: 0 };
+  }
+
+  return { nodeScale: 1, fpsCap: 60 };
+}
+
+const STARFIELD_PROFILE = getStarfieldProfile();
+let lastFrameTime = 0;
 
 const TAB_CONTENT = {
   home: {
@@ -38,7 +60,7 @@ const TAB_CONTENT = {
       <section class="section content">
         <p class="eyebrow">Snapshot</p>
         <p>Recently, I interned at xForm Solutions where I built a multilingual ASR to MT to intent system using Whisper, NLLB-200, and Sentence-BERT, validated with systematic WER and CER testing on Google FLEURS.</p>
-        <p>Use the tabs on the left to switch sections with smooth side transitions while keeping this panel scrollable.</p>
+        <p>Scroll down to explore each section continuously while the sidebar highlights where you are.</p>
       </section>
       <section class="section">
         <ul class="highlights">
@@ -616,6 +638,9 @@ function initExtracurricularSubtabs() {
 
   const mosaicRoot = rootTabs.querySelector("[data-photo-mosaic]");
   const supportedPhotoExtensions = ["jpg", "jpeg", "png", "webp", "avif"];
+  const fullPhotoOverrides = {
+    photo37: "png",
+  };
   const photoGrid = mosaicRoot?.querySelector("[data-photo-grid]");
   const moreWrap = mosaicRoot?.querySelector("[data-photo-more-wrap]");
   const moreButton = mosaicRoot?.querySelector("[data-photo-more]");
@@ -631,30 +656,47 @@ function initExtracurricularSubtabs() {
   let photoItems = [];
   let activeLightboxIndex = -1;
 
+  if (lightbox && lightbox.parentElement !== document.body) {
+    document.body.appendChild(lightbox);
+  }
+
   const prepareImageItem = (item, index) => {
     item.style.setProperty("--photo-stagger", `${index * 40}ms`);
 
     const image = item.querySelector("img[data-photo-base]");
     const base = image?.dataset.photoBase;
+    const thumb = image?.dataset.photoThumb;
     if (!image || !base) {
       return;
     }
 
-    let extensionIndex = 0;
+    const fallbackSources = Array.from(
+      new Set([
+        thumb,
+        image.dataset.photoFull,
+        ...supportedPhotoExtensions.map((ext) => `${base}.${ext}`),
+      ].filter(Boolean)),
+    );
+
+    let sourceIndex = -1;
 
     const tryNextExtension = () => {
-      if (extensionIndex >= supportedPhotoExtensions.length) {
+      sourceIndex += 1;
+
+      if (sourceIndex >= fallbackSources.length) {
         image.removeAttribute("src");
         image.style.opacity = "0";
         item.classList.add("is-photo-ready");
         return;
       }
 
-      image.src = `${base}.${supportedPhotoExtensions[extensionIndex]}`;
-      extensionIndex += 1;
+      image.src = fallbackSources[sourceIndex];
     };
 
     image.addEventListener("load", () => {
+      if (sourceIndex > 0) {
+        image.dataset.photoFull = image.currentSrc || image.src;
+      }
       item.classList.add("is-photo-ready");
     });
     image.addEventListener("error", tryNextExtension);
@@ -662,15 +704,19 @@ function initExtracurricularSubtabs() {
   };
 
   const buildPhotoCard = (baseName, number) => {
+    const baseFileName = baseName.split("/").pop() || "";
     const article = document.createElement("article");
     article.className = "photo-mosaic-item";
     article.dataset.photoItem = "";
 
     const image = document.createElement("img");
     image.dataset.photoBase = baseName;
+    image.dataset.photoThumb = `public/thumbs/${baseFileName}.jpg`;
+    image.dataset.photoFull = `${baseName}.${fullPhotoOverrides[baseFileName] || "jpg"}`;
     image.alt = `Photography upload ${number}`;
     image.loading = "lazy";
     image.decoding = "async";
+    image.fetchPriority = "low";
     article.appendChild(image);
 
     return article;
@@ -735,6 +781,40 @@ function initExtracurricularSubtabs() {
       mosaicRoot.classList.remove("is-hovering");
     });
 
+    const loadLightboxImage = (sourceImage) => {
+      if (!lightboxImage || !sourceImage) {
+        return;
+      }
+
+      const base = sourceImage.dataset.photoBase;
+      const sources = Array.from(
+        new Set([
+          sourceImage.dataset.photoFull,
+          ...(base ? supportedPhotoExtensions.map((ext) => `${base}.${ext}`) : []),
+          sourceImage.currentSrc,
+          sourceImage.src,
+        ].filter(Boolean)),
+      );
+
+      let sourceIndex = -1;
+      const tryNextSource = () => {
+        sourceIndex += 1;
+        if (sourceIndex >= sources.length) {
+          lightboxImage.removeAttribute("src");
+          return;
+        }
+        lightboxImage.src = sources[sourceIndex];
+      };
+
+      lightboxImage.onerror = tryNextSource;
+      lightboxImage.onload = () => {
+        lightboxImage.onerror = null;
+        lightboxImage.onload = null;
+      };
+
+      tryNextSource();
+    };
+
     const setLightboxImageByIndex = (index) => {
       if (!lightboxImage) {
         return;
@@ -755,7 +835,7 @@ function initExtracurricularSubtabs() {
         return;
       }
 
-      lightboxImage.src = activeImage.currentSrc || activeImage.src;
+      loadLightboxImage(activeImage);
       lightboxImage.alt = activeImage.alt || "Full-size photograph";
     };
 
@@ -805,7 +885,12 @@ function initExtracurricularSubtabs() {
     lightboxPrev?.addEventListener("click", () => stepLightbox(-1));
     lightboxNext?.addEventListener("click", () => stepLightbox(1));
     lightbox?.addEventListener("click", (event) => {
-      if (event.target === lightbox) {
+      const target = event.target instanceof Element ? event.target : null;
+      const clickedInteractive = Boolean(
+        target?.closest("[data-photo-lightbox-image], [data-photo-lightbox-prev], [data-photo-lightbox-next], [data-photo-close]"),
+      );
+
+      if (!clickedInteractive) {
         closeLightbox();
       }
     });
@@ -831,92 +916,119 @@ function initExtracurricularSubtabs() {
   setHobby("drummer");
 }
 
-function renderTabPanel(tabKey, animate = true) {
-  const content = TAB_CONTENT[tabKey];
-  if (!content || !panelHost) {
+function renderSinglePageSections() {
+  if (!panelHost) {
     return;
   }
 
-  const panel = document.createElement("article");
-  panel.className = "tab-panel";
-  panel.innerHTML = `
-    <section class="section hero">
-      <p class="eyebrow">${content.heroLabel}</p>
-      <h2>${content.heroTitle}</h2>
-      <p>${content.heroBody}</p>
-    </section>
-    ${content.body}
-  `;
-  forceLinksToOpenInNewTab(panel);
+  const flow = document.createElement("div");
+  flow.className = "sections-flow";
+  sectionKeys = Object.keys(TAB_CONTENT);
 
-  const canAnimatePanelTransition =
-    animate && !reducedMotionMedia.matches && !window.matchMedia("(max-width: 1080px)").matches;
+  sectionKeys.forEach((tabKey) => {
+    const content = TAB_CONTENT[tabKey];
+    const panel = document.createElement("article");
+    panel.className = "tab-panel section-panel";
+    panel.dataset.section = tabKey;
+    panel.id = `section-${tabKey}`;
+    panel.innerHTML = `
+      <section class="section hero">
+        <p class="eyebrow">${content.heroLabel}</p>
+        <h2>${content.heroTitle}</h2>
+        <p>${content.heroBody}</p>
+      </section>
+      ${content.body}
+    `;
+    forceLinksToOpenInNewTab(panel);
+    flow.appendChild(panel);
+  });
 
-  const oldPanel = panelHost.firstElementChild;
-  if (!oldPanel || !canAnimatePanelTransition) {
-    panelHost.innerHTML = "";
-    panelHost.appendChild(panel);
-    resetPaneScroll();
-    initProjectStack();
-    initExtracurricularSubtabs();
-    tabAnimating = false;
-    return;
+  panelHost.innerHTML = "";
+  panelHost.appendChild(flow);
+
+  if (rightPane) {
+    rightPane.scrollTop = 0;
   }
-
-  oldPanel.classList.add("is-leaving");
-  panel.classList.add("is-entering");
-  panelHost.appendChild(panel);
-  resetPaneScroll();
-
-  panel.addEventListener(
-    "animationend",
-    () => {
-      panel.classList.remove("is-entering");
-    },
-    { once: true },
-  );
-
-  oldPanel.addEventListener(
-    "animationend",
-    () => {
-      oldPanel.remove();
-    },
-    { once: true },
-  );
-
-  window.setTimeout(() => {
-    tabAnimating = false;
-  }, PANEL_ANIMATION_MS + 30);
 
   initProjectStack();
   initExtracurricularSubtabs();
+  updateSidebarByScrollPosition();
 }
 
-function setActiveTab(tabKey, animate = true) {
-  if (!TAB_CONTENT[tabKey] || (tabKey === currentTab && animate) || tabAnimating) {
-    return;
-  }
-
-  if (animate) {
-    tabAnimating = true;
-  }
-
-  const targetTheme = tabKey === "extracurricular" ? "light" : "dark";
-  document.body.classList.add("is-theme-fading");
-  applyTheme(targetTheme);
-  window.setTimeout(() => {
-    document.body.classList.remove("is-theme-fading");
-  }, 320);
-
-  currentTab = tabKey;
-  resetPaneScroll();
+function setActiveSidebarButton(tabKey) {
   tabButtons.forEach((button) => {
     const active = button.dataset.tab === tabKey;
     button.classList.toggle("is-active", active);
-    button.setAttribute("aria-pressed", active ? "true" : "false");
+    button.setAttribute("aria-current", active ? "true" : "false");
+  });
+}
+
+function updateSidebarByScrollPosition() {
+  if (!panelHost || sectionKeys.length === 0) {
+    return;
+  }
+
+  const scrollTop = rightPane ? rightPane.scrollTop : (window.scrollY || document.documentElement.scrollTop || 0);
+  const pivot = scrollTop + 180;
+  let active = sectionKeys[0];
+
+  sectionKeys.forEach((key) => {
+    const section = panelHost.querySelector(`#section-${key}`);
+    if (!section) {
+      return;
+    }
+
+    if (section.offsetTop <= pivot) {
+      active = key;
+    }
   });
 
-  renderTabPanel(tabKey, animate);
+  setActiveSidebarButton(active);
+}
+
+function wireSectionTracking() {
+  const target = rightPane || window;
+  target.addEventListener(
+    "scroll",
+    () => {
+      if (scrollTicking) {
+        return;
+      }
+
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        updateSidebarByScrollPosition();
+        scrollTicking = false;
+      });
+    },
+    { passive: true },
+  );
+}
+
+function scrollToSection(tabKey) {
+  if (!TAB_CONTENT[tabKey] || !panelHost) {
+    return;
+  }
+
+  const section = panelHost.querySelector(`#section-${tabKey}`);
+  if (!section) {
+    return;
+  }
+
+  setActiveSidebarButton(tabKey);
+
+  if (rightPane) {
+    rightPane.scrollTo({
+      top: Math.max(0, section.offsetTop - 24),
+      behavior: reducedMotionMedia.matches ? "auto" : "smooth",
+    });
+    return;
+  }
+
+  section.scrollIntoView({
+    behavior: reducedMotionMedia.matches ? "auto" : "smooth",
+    block: "start",
+  });
 }
 
 function wireTabNavigation() {
@@ -926,7 +1038,7 @@ function wireTabNavigation() {
       if (!tab) {
         return;
       }
-      setActiveTab(tab, true);
+      scrollToSection(tab);
     });
   });
 }
@@ -935,66 +1047,43 @@ function wireStaticLinks() {
   forceLinksToOpenInNewTab(document);
 }
 
-function runSmoothScrollLoop() {
-  if (!rightPane) {
-    smoothScrollRunning = false;
-    smoothScrollFrameId = null;
-    return;
-  }
-
-  const delta = smoothScrollTarget - rightPane.scrollTop;
-  if (Math.abs(delta) < 0.4) {
-    rightPane.scrollTop = smoothScrollTarget;
-    smoothScrollRunning = false;
-    smoothScrollFrameId = null;
-    return;
-  }
-
-  rightPane.scrollTop += delta * 0.12;
-  smoothScrollFrameId = requestAnimationFrame(runSmoothScrollLoop);
-}
-
-function resetPaneScroll() {
-  smoothScrollTarget = 0;
-  if (smoothScrollFrameId !== null) {
-    cancelAnimationFrame(smoothScrollFrameId);
-    smoothScrollFrameId = null;
-  }
-  smoothScrollRunning = false;
-  if (rightPane) {
-    rightPane.scrollTop = 0;
-  }
-}
-
-function wireSlowedScroll() {
+function wireRightPaneExclusiveScroll() {
   if (!rightPane) {
     return;
   }
 
-  rightPane.addEventListener(
-    "wheel",
-    (event) => {
-      event.preventDefault();
-      const max = Math.max(0, rightPane.scrollHeight - rightPane.clientHeight);
-      smoothScrollTarget = Math.max(0, Math.min(max, smoothScrollTarget + event.deltaY * 0.68));
+  const redirectWheel = (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    const lightboxOpen = Boolean(document.querySelector(".photo-lightbox.is-open"));
+    const inRightPane = Boolean(target && target.closest("#rightPane"));
 
-      if (!smoothScrollRunning) {
-        smoothScrollRunning = true;
-        smoothScrollFrameId = requestAnimationFrame(runSmoothScrollLoop);
-      }
-    },
-    { passive: false },
-  );
+    if (lightboxOpen || inRightPane) {
+      return;
+    }
+
+    event.preventDefault();
+    rightPane.scrollTop += event.deltaY;
+  };
+
+  leftPane?.addEventListener("wheel", redirectWheel, { passive: false });
+  document.querySelector(".topbar")?.addEventListener("wheel", redirectWheel, { passive: false });
 }
 
 function pointCountForArea(area) {
+  let count = 58;
   if (area < 280000) {
-    return 28;
+    count = 28;
+  } else if (area < 700000) {
+    count = 42;
   }
-  if (area < 700000) {
-    return 42;
+
+  count = Math.floor(count * NODE_DENSITY_MULTIPLIER * STARFIELD_PROFILE.nodeScale);
+
+  if (reducedMotionMedia.matches) {
+    return Math.max(16, Math.floor(count * 0.55));
   }
-  return 58;
+
+  return count;
 }
 
 function createPoint(random) {
@@ -1040,12 +1129,6 @@ function setup() {
   points = Array.from({ length: target }, () => createPoint(random));
 }
 
-function distance(a, b) {
-  const dx = a.x - b.x;
-  const dy = a.y - b.y;
-  return Math.sqrt(dx * dx + dy * dy);
-}
-
 function updatePoints() {
   const mouseActive = performance.now() < mouseActiveUntil;
 
@@ -1083,21 +1166,25 @@ function draw() {
   ctx.clearRect(0, 0, width, height);
 
   const maxDistance = Math.min(185, Math.max(130, width * 0.13));
+  const maxDistanceSq = maxDistance * maxDistance;
 
   for (let i = 0; i < points.length; i += 1) {
     const a = points[i];
 
     for (let j = i + 1; j < points.length; j += 1) {
       const b = points[j];
-      const dist = distance(a, b);
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      const distSq = dx * dx + dy * dy;
 
-      if (dist < maxDistance) {
+      if (distSq < maxDistanceSq) {
+        const dist = Math.sqrt(distSq);
         const t = 1 - dist / maxDistance;
         const visibility = Math.min(a.respawnProgress, b.respawnProgress);
-        ctx.strokeStyle = `rgba(${palette.line}, ${(0.04 + t * 0.2) * visibility})`;
+        ctx.strokeStyle = `rgba(${palette.line}, ${(0.07 + t * 0.3) * visibility})`;
         ctx.lineWidth = 0.65 + t * 0.45;
-        ctx.shadowBlur = 8 * t;
-        ctx.shadowColor = `rgba(${palette.glow}, ${0.58 * t * visibility})`;
+        ctx.shadowBlur = 14 * t;
+        ctx.shadowColor = `rgba(${palette.glow}, ${0.82 * t * visibility})`;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
@@ -1108,8 +1195,8 @@ function draw() {
     const pulse = 0.25 + (Math.sin(a.pulse) + 1) * 0.35;
     const dotAlpha = (0.36 + pulse * 0.5) * a.respawnProgress;
     ctx.fillStyle = `rgba(${palette.dot}, ${dotAlpha})`;
-    ctx.shadowBlur = 9 + pulse * 8;
-    ctx.shadowColor = `rgba(${palette.glow}, ${0.55 * a.respawnProgress})`;
+    ctx.shadowBlur = 14 + pulse * 12;
+    ctx.shadowColor = `rgba(${palette.glow}, ${0.8 * a.respawnProgress})`;
     ctx.beginPath();
     ctx.arc(a.x, a.y, a.radius + pulse * 0.32, 0, Math.PI * 2);
     ctx.fill();
@@ -1118,11 +1205,48 @@ function draw() {
   ctx.shadowBlur = 0;
 }
 
-function frame() {
+function frame(timestamp = 0) {
+  if (reducedMotionMedia.matches) {
+    const minFrameMs = 1000 / LOW_POWER_FPS;
+    if (timestamp - lastFrameTime < minFrameMs) {
+      starfieldFrameId = requestAnimationFrame(frame);
+      return;
+    }
+    lastFrameTime = timestamp;
+  } else if (STARFIELD_PROFILE.fpsCap > 0) {
+    const minFrameMs = 1000 / STARFIELD_PROFILE.fpsCap;
+    if (timestamp - lastFrameTime < minFrameMs) {
+      starfieldFrameId = requestAnimationFrame(frame);
+      return;
+    }
+    lastFrameTime = timestamp;
+  }
+
   updatePoints();
   draw();
-  requestAnimationFrame(frame);
+  starfieldFrameId = requestAnimationFrame(frame);
 }
+
+function startStarfield() {
+  if (starfieldFrameId !== null) {
+    return;
+  }
+  lastFrameTime = 0;
+  starfieldFrameId = requestAnimationFrame(frame);
+}
+
+function stopStarfield() {
+  if (starfieldFrameId === null) {
+    return;
+  }
+  cancelAnimationFrame(starfieldFrameId);
+  starfieldFrameId = null;
+}
+
+reducedMotionMedia.addEventListener("change", () => {
+  setup();
+  lastFrameTime = 0;
+});
 
 window.addEventListener("resize", setup);
 window.addEventListener("pointermove", (event) => {
@@ -1135,12 +1259,20 @@ window.addEventListener("pointerleave", () => {
   mouse.y = -9999;
   mouseActiveUntil = 0;
 });
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    stopStarfield();
+  } else {
+    startStarfield();
+  }
+});
 
 initTheme();
 wireStaticLinks();
 wireTabNavigation();
-wireSlowedScroll();
-setActiveTab("home", false);
+wireRightPaneExclusiveScroll();
+renderSinglePageSections();
+wireSectionTracking();
 runIntroSplash();
 setup();
-frame();
+startStarfield();
