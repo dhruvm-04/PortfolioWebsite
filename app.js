@@ -306,9 +306,9 @@ const TAB_CONTENT = {
 
           <section class="extra-panel is-active" data-extra-panel="profile" role="tabpanel" aria-label="About Me">
             <div class="hobby-pills" data-hobby-pills>
-              <button type="button" class="hobby-pill is-active" data-hobby="drummer">Drummer</button>
               <button type="button" class="hobby-pill" data-hobby="photographer">Photographer</button>
               <button type="button" class="hobby-pill" data-hobby="artist3d">3D Artist</button>
+              <button type="button" class="hobby-pill is-active" data-hobby="drummer">Drummer</button>
               <button type="button" class="hobby-pill" data-hobby="automotive">Automotives</button>
             </div>
             <article class="hobby-spotlight" data-hobby-spotlight>
@@ -913,7 +913,7 @@ function initExtracurricularSubtabs() {
   }
 
   setActive("profile");
-  setHobby("drummer");
+  setHobby("photographer");
 }
 
 function renderSinglePageSections() {

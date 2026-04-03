@@ -695,101 +695,139 @@ h1 {
 }
 
 .skills-graph {
+  --graph-line: color-mix(in srgb, var(--line-strong) 74%, transparent);
+  --graph-dot: color-mix(in srgb, var(--accent) 86%, #ffffff 14%);
   position: relative;
-  min-height: auto;
   border: 1px solid color-mix(in srgb, var(--line-soft) 86%, transparent);
-  border-radius: 1.2rem;
-  padding: 1.15rem;
+  border-radius: 1.35rem;
+  padding: 1.25rem;
   background:
-    radial-gradient(100% 100% at 10% 10%, color-mix(in srgb, var(--accent-soft) 72%, transparent), transparent 62%),
-    radial-gradient(95% 110% at 82% 90%, color-mix(in srgb, var(--accent-soft) 35%, transparent), transparent 68%),
-    linear-gradient(165deg, color-mix(in srgb, var(--bg-0) 90%, var(--bg-1) 10%), var(--bg-1));
+    radial-gradient(120% 140% at 8% 0%, color-mix(in srgb, var(--accent-soft) 72%, transparent), transparent 56%),
+    radial-gradient(100% 130% at 92% 100%, color-mix(in srgb, var(--accent-soft) 42%, transparent), transparent 62%),
+    linear-gradient(160deg, color-mix(in srgb, var(--bg-0) 87%, var(--bg-1) 13%), color-mix(in srgb, var(--bg-1) 95%, black 5%));
   overflow: hidden;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.15rem;
 }
 
 .skills-graph::before,
 .skills-graph::after {
   content: "";
   position: absolute;
-  left: 8%;
-  right: 8%;
+  left: 5%;
+  right: 5%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--line-strong) 45%, transparent), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--line-strong) 56%, transparent), transparent);
   pointer-events: none;
-  opacity: 0.55;
+  opacity: 0.42;
 }
 
 .skills-graph::before {
-  top: 34%;
+  top: 32%;
 }
 
 .skills-graph::after {
-  top: 66%;
+  top: 68%;
 }
 
 .skill-cluster {
+  --branch-x: 0.55rem;
   position: relative;
   display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 0.65rem;
+  grid-template-rows: auto 1fr;
+  row-gap: 0.72rem;
   align-items: start;
   width: 100%;
-  margin-inline: 0;
-  animation: skill-float 10.5s ease-in-out infinite;
+  margin: 0;
+  padding: 0.92rem 0.9rem 0.96rem;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--line-soft) 65%, transparent);
+  background: color-mix(in srgb, var(--bg-1) 78%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 6%, transparent);
 }
 
 .graph-node {
-  border-radius: 0.95rem;
+  border-radius: 0.88rem;
   border: 1px solid color-mix(in srgb, var(--line-soft) 88%, transparent);
   background: color-mix(in srgb, var(--bg-1) 94%, var(--bg-0) 6%);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--bg-1) 40%, transparent);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--bg-1) 36%, transparent);
 }
 
 .graph-parent {
-  padding: 0.82rem 0.88rem;
+  position: relative;
+  width: 100%;
+  min-height: 3.2rem;
+  display: flex;
+  align-items: center;
+  padding: 0.72rem 0.88rem 0.72rem 1.24rem;
   font-size: 0.97rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.24;
+}
+
+.graph-parent::before {
+  content: "";
+  position: absolute;
+  left: var(--branch-x);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--graph-dot);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 62%, transparent);
+  pointer-events: none;
+}
+
+.graph-parent::after {
+  content: "";
+  position: absolute;
+  left: var(--branch-x);
+  top: 100%;
+  width: 1px;
+  height: 0.72rem;
+  background: var(--graph-line);
+  pointer-events: none;
 }
 
 .cluster-children {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.48rem;
-  padding-left: 0.86rem;
+  gap: 0.5rem;
+  padding-top: 0.72rem;
+  padding-left: 1.26rem;
 }
 
 .cluster-children::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0.85rem;
-  bottom: 0.85rem;
+  left: var(--branch-x);
+  top: 0;
+  bottom: 0.92rem;
   width: 1px;
-  background: color-mix(in srgb, var(--line-strong) 72%, transparent);
+  background: var(--graph-line);
 }
 
 .cluster-children::after {
   content: "";
   position: absolute;
-  left: -2px;
-  top: 0.85rem;
-  width: 5px;
-  height: 5px;
+  left: var(--branch-x);
+  top: 0;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 92%, #ffffff 8%);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 72%, transparent);
-  animation: branch-pulse 6.5s ease-in-out infinite;
+  background: var(--graph-dot);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 64%, transparent);
 }
 
 .graph-child {
   position: relative;
-  padding: 0.44rem 0.62rem;
-  font-size: 0.8rem;
+  padding: 0.42rem 0.64rem;
+  font-size: 0.82rem;
+  line-height: 1.25;
   width: fit-content;
   max-width: 100%;
 }
@@ -797,48 +835,23 @@ h1 {
 .graph-child::before {
   content: "";
   position: absolute;
-  left: -0.86rem;
+  left: -0.98rem;
   top: 50%;
-  width: 0.86rem;
+  width: 0.98rem;
   height: 1px;
-  background: color-mix(in srgb, var(--line-strong) 72%, transparent);
+  background: var(--graph-line);
 }
 
 .cluster-lang {
-  animation-delay: 0s;
+  transform: translateY(0.2rem);
 }
 
 .cluster-web {
-  animation-delay: -3.2s;
+  transform: translateY(0);
 }
 
 .cluster-cloud {
-  animation-delay: -6.1s;
-}
-
-@keyframes skill-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  35% {
-    transform: translate3d(0.24rem, -0.42rem, 0) rotate(0.32deg);
-  }
-  70% {
-    transform: translate3d(-0.24rem, 0.4rem, 0) rotate(-0.28deg);
-  }
-}
-
-@keyframes branch-pulse {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.3;
-  }
-  50% {
-    transform: translateY(calc(100% + 1.1rem));
-    opacity: 1;
-  }
+  transform: translateY(0.16rem);
 }
 
 .project-list {
@@ -1481,38 +1494,45 @@ body.is-photo-lightbox-open .right-pane {
   }
 
   .skills-graph {
-    min-height: auto;
     padding: 0.85rem;
     grid-template-columns: 1fr;
+    gap: 0.85rem;
   }
 
   .skills-graph::before,
   .skills-graph::after {
-    left: 10%;
-    right: 10%;
+    display: none;
   }
 
   .skill-cluster {
-    position: static;
-    width: 100%;
-    grid-template-columns: 1fr;
-    gap: 0.55rem;
-    animation: none;
+    --branch-x: 0.5rem;
+    row-gap: 0.6rem;
+    padding: 0.78rem 0.72rem 0.82rem;
+    transform: none;
   }
 
   .graph-parent {
-    width: fit-content;
-    max-width: 100%;
+    min-height: 3rem;
+    font-size: 0.93rem;
+    padding-left: 1.16rem;
   }
 
   .cluster-children {
-    padding-left: 0.95rem;
+    padding-top: 0.62rem;
+    padding-left: 1.1rem;
+    gap: 0.44rem;
+  }
+
+  .graph-child {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.6rem;
   }
 
   .cluster-lang,
   .cluster-web,
   .cluster-cloud {
     margin-bottom: 0;
+    transform: none;
   }
 
   .project-head {
