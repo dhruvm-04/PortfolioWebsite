@@ -212,6 +212,15 @@ section {
   position: relative;
   z-index: 2;
 }
+.home-cubes {
+  position: absolute;
+  top: 12rem;
+  right: 0;
+  width: 26%;
+  height: calc(100% - 12rem);
+  pointer-events: none;
+  z-index: 1;
+}
 .home-name {
   font-family: 'Inter', sans-serif;
   font-weight: 900;
@@ -1078,6 +1087,7 @@ footer {
 <!-- HOME -->
 <section id="home">
   <div class="cursor-invert" id="cursorInvert"></div>
+  <canvas class="home-cubes" id="homeCubesCanvas"></canvas>
   <div class="home-content">
     <div class="section-label reveal">
       <span class="num">[01]</span>
@@ -1922,5 +1932,109 @@ const sectionObserver = new IntersectionObserver((entries) => {
 sections.forEach(s => sectionObserver.observe(s));
 </script>
 
+<script>
+/* ════════════════════════════════
+   HOME — FLOATING WIREFRAME CUBES
+   (black strokes, transparent bg)
+   ════════════════════════════════ */
+(function(){
+  const canvas = document.getElementById('homeCubesCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, t = 0;
+
+  function resize(){
+    const rect = canvas.getBoundingClientRect();
+    W = canvas.width  = rect.width;
+    H = canvas.height = rect.height;
+    anchorCubes();
+  }
+
+  function rotX(v, a){ const c=Math.cos(a),s=Math.sin(a); return [v[0], v[1]*c-v[2]*s, v[1]*s+v[2]*c]; }
+  function rotY(v, a){ const c=Math.cos(a),s=Math.sin(a); return [v[0]*c+v[2]*s, v[1], -v[0]*s+v[2]*c]; }
+  function rotZ(v, a){ const c=Math.cos(a),s=Math.sin(a); return [v[0]*c-v[1]*s, v[0]*s+v[1]*c, v[2]]; }
+
+  function project(v, fov, cx, cy){
+    const z = v[2] + fov;
+    if(z <= 0.001) return null;
+    const scale = fov / z;
+    return [cx + v[0] * scale, cy + v[1] * scale, scale];
+  }
+
+  const BASE_VERTS = [
+    [-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
+    [-1,-1, 1],[1,-1, 1],[1,1, 1],[-1,1, 1]
+  ];
+  const EDGES = [
+    [0,1],[1,2],[2,3],[3,0],
+    [4,5],[5,6],[6,7],[7,4],
+    [0,4],[1,5],[2,6],[3,7]
+  ];
+
+  const cubes = [
+    { fx:0.20, fy:0.15, z: 0,   size: 53, rx:0,   ry:0,   rz:0,   srx:0.0008, sry:0.0013, srz:0.0005 },
+    { fx:0.75, fy:0.3, z: 40,  size: 40, rx:1.0, ry:0.5, rz:0,   srx:0.0006, sry:0.0011, srz:0.0009 },
+    { fx:0.30, fy:0.55, z: 15,  size: 30, rx:0.7, ry:0.9, rz:0,   srx:0.0009, sry:0.0006, srz:0.0007 },
+    { fx:0.70, fy:0.78, z: 25,  size: 50, rx:0.4, ry:1.2, rz:0,   srx:0.0010, sry:0.0007, srz:0.0008 },
+  ];
+
+  function anchorCubes(){
+    for(const c of cubes){ c.x = W * c.fx; c.y = H * c.fy; }
+  }
+
+  function drawCube(c, fov){
+    const pts2d = BASE_VERTS.map(v => {
+      let p = [v[0]*c.size, v[1]*c.size, v[2]*c.size];
+      p = rotX(p, c.rx);
+      p = rotY(p, c.ry);
+      p = rotZ(p, c.rz);
+      p[2] += c.z;
+      return project(p, fov, c.x, c.y);
+    });
+
+    ctx.lineWidth = 1.0;
+    for(const [a, b] of EDGES){
+      const pa = pts2d[a], pb = pts2d[b];
+      if(!pa || !pb) continue;
+      const avgScale = (pa[2] + pb[2]) * 0.5;
+      const alpha = Math.min(0.55, 0.32 * avgScale * 2.0);
+      ctx.beginPath();
+      ctx.moveTo(pa[0], pa[1]);
+      ctx.lineTo(pb[0], pb[1]);
+      ctx.strokeStyle = `rgba(10,10,10,${alpha.toFixed(3)})`;
+      ctx.stroke();
+    }
+
+    for(const p of pts2d){
+      if(!p) continue;
+      const alpha = Math.min(0.75, 0.35 * p[2] * 2.4);
+      ctx.beginPath();
+      ctx.arc(p[0], p[1], 1.4, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(10,10,10,${alpha.toFixed(3)})`;
+      ctx.fill();
+    }
+  }
+
+  function frame(){
+    t += 0.003;
+    ctx.clearRect(0, 0, W, H);
+
+    const fov = Math.max(W, H) * 1.1;
+
+    for(const c of cubes){
+      c.rx += c.srx;
+      c.ry += c.sry;
+      c.rz += c.srz;
+      drawCube(c, fov);
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  frame();
+})();
+</script>
 </body>
 </html>
