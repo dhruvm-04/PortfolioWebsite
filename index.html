@@ -578,6 +578,84 @@ section {
   color: var(--red);
 }
 .exp-row:hover .exp-bullets li { color: rgba(237, 234, 227, 0.6); }
+/* ============ FIRST-ELEMENT DARK STYLE (inverted hover) ============ */
+#about > div > div.bento.about-bento.reveal-stagger > div.about-stack,
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1),
+#extracurricular > div > div.bento.extra-bento.reveal-stagger > a {
+  background: var(--ink);
+  color: var(--paper);
+}
+#about > div > div.bento.about-bento.reveal-stagger > div.about-stack .b-label {
+  color: var(--red);
+}
+#about > div > div.bento.about-bento.reveal-stagger > div.about-stack .tag {
+  border-color: var(--paper);
+}
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) .exp-date,
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) .exp-desc,
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) .exp-bullets li,
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) code,
+#extracurricular > div > div.bento.extra-bento.reveal-stagger > a .extra-role,
+#extracurricular > div > div.bento.extra-bento.reveal-stagger > a .extra-desc {
+  color: rgba(237, 234, 227, 0.6);
+}
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) .exp-hash {
+  color: var(--red);
+}
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) .exp-tag {
+  border-color: var(--paper);
+  color: var(--paper);
+}
+#extracurricular > div > div.bento.extra-bento.reveal-stagger > a .extra-tag {
+  border-color: var(--paper);
+  color: var(--paper);
+}
+
+/* Swapped hover: these first elements go LIGHT on hover instead of dark */
+#about > div > div.bento.about-bento.reveal-stagger > div.about-stack:hover,
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover,
+#extracurricular > div > div.bento.extra-bento.reveal-stagger > a:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+#about > div > div.bento.about-bento.reveal-stagger > div.about-stack:hover .b-label {
+  color: var(--red);
+}
+#about > div > div.bento.about-bento.reveal-stagger > div.about-stack:hover .tag {
+  border-color: var(--ink);
+}
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-date {
+  color: var(--ink);
+}
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-desc,
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-bullets li {
+  color: var(--gray);
+}
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover code {
+  background: rgba(10, 10, 10, 0.06);
+  color: var(--ink);
+}
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-hash {
+  color: var(--red);
+}
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-company {
+  color: var(--red);
+}
+#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-tag {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+#extracurricular > div > div.bento.extra-bento.reveal-stagger > a:hover .extra-tag {
+  border-color: var(--red);
+  color: var(--red);
+}
+#extracurricular > div > div.bento.extra-bento.reveal-stagger > a:hover .extra-role {
+  color: var(--red);
+}
+#extracurricular > div > div.bento.extra-bento.reveal-stagger > a:hover .extra-desc {
+  color: var(--gray);
+}
+
 code {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82em;
@@ -1202,8 +1280,8 @@ footer {
         <div class="stat-label">Projects Created</div>
       </div>
       <div class="about-stat-3">
-        <div class="stat-num">40<span class="suffix">%</span></div>
-        <div class="stat-label">Scholarship</div>
+        <div class="stat-num">5</div>
+        <div class="stat-label">Projects</div>
       </div>
       <div class="about-stat-4">
         <div class="stat-num">1<span class="suffix"> / 3</span></div>
