@@ -742,27 +742,30 @@ code {
 }
 .photo-track {
   display: grid;
-  grid-template-rows: repeat(3, 110px);
+  grid-template-rows: repeat(3, 132px);
   grid-auto-flow: column dense;
   grid-auto-columns: 150px;
   gap: 1px;
   width: max-content;
   animation: photo-marquee 120s linear infinite;
+  will-change: transform;
+  contain: layout style paint;
 }
 @keyframes photo-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+.photo-item {
+  contain: layout paint;
 }
 .photo-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: grayscale(20%) contrast(1.02);
-  transition: filter 0.3s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .photo-item.active img {
-  filter: grayscale(0%);
   transform: scale(1.06);
 }
 .photo-item.wide { grid-column: span 2; }
@@ -771,7 +774,7 @@ code {
 
 @media (max-width: 900px) {
   .photo-track {
-    grid-template-rows: repeat(3, 84px);
+    grid-template-rows: repeat(3, 101px);
     grid-auto-columns: 110px;
   }
 }
