@@ -742,9 +742,9 @@ code {
 }
 .photo-track {
   display: grid;
-  grid-template-rows: repeat(3, 132px);
+  grid-template-rows: repeat(4, 150px);
   grid-auto-flow: column dense;
-  grid-auto-columns: 150px;
+  grid-auto-columns: 120px;
   gap: 1px;
   width: max-content;
   animation: photo-marquee 120s linear infinite;
@@ -1480,10 +1480,16 @@ footer {
 
     <br>
     <br>
-
+    
     <div class="photo-showcase reveal">
-      <span class="b-label">Photography Showcase</span>
-      <div class="photo-scroll">
+    <div class="section-label reveal">
+      <span class="num">[++]</span>
+      <span class="sep">/</span>
+      <span class="name">Photography Showcase</span>
+      <span class="line"></span>
+      <span class="meta">ls ~/gallery</span>
+    </div>
+    <div class="photo-scroll">
       <div class="photo-track">
       <div class="photo-item" data-idx="0"><img src="public/photo01.jpg" alt="Photography 01" loading="lazy" decoding="async"></div>
       <div class="photo-item wide" data-idx="1"><img src="public/photo02.jpg" alt="Photography 02" loading="lazy" decoding="async"></div>
