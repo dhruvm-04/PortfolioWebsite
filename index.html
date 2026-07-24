@@ -691,6 +691,7 @@ code {
 .proj-3 { grid-column: span 4; }
 .proj-4 { grid-column: span 6; }
 .proj-5 { grid-column: span 6; }
+.proj-6 { grid-column: span 6; }
 
 .proj-1 {
   background: var(--ink);
@@ -1280,7 +1281,7 @@ footer {
         <div class="stat-label">Projects Created</div>
       </div>
       <div class="about-stat-3">
-        <div class="stat-num">5</div>
+        <div class="stat-num">6</div>
         <div class="stat-label">Projects</div>
       </div>
       <div class="about-stat-4">
@@ -1404,7 +1405,7 @@ footer {
           <div class="proj-stars">Jun 2025</div>
         </div>
         <p class="proj-desc">
-          Secure playlist conversion and sharing platform. Built an encrypted peer-to-peer playlist sharing system with a custom Selective Repeat protocol over raw sockets, with a modern user-friendly GUI.
+          Built a peer-to-peer playlist transfer system over raw UDP using a custom Selective Repeat ARQ protocol with sliding windows, retransmissions, and cumulative acknowledgments for reliable delivery. Developed a fuzzy-matching engine combining title, artist, and duration similarity to accurately match tracks across platforms.
         </p>
         <div class="proj-lang">
           <span class="lang-dot go"></span> Python · Socket Programming
@@ -1422,22 +1423,24 @@ footer {
       <article class="proj-3">
         <div class="b-label">prj_003</div>
         <div class="proj-head">
-          <div class="proj-name">StockPrediction</div>
-          <div class="proj-stars">Oct 2025</div>
+          <div class="proj-name">SocialMediaPlatform</div>
+          <div class="proj-stars">2025</div>
         </div>
         <p class="proj-desc">
-          Predicting stock prices over short intervals. Designed a deep-learning tool for financial time-series forecasting with improved predictive accuracy.
+          Built a full-stack social media platform with Django and MySQL supporting authentication, posts, comments, likes, and a symmetric friendship model.
+          Enforced data integrity with check/unique constraints and Django-level permission checks, and wrote MySQL triggers, stored procedures, and a stored function (mutual-friends lookup, friend-count, personalized feed generation) to move core relational logic into the database layer.
         </p>
         <div class="proj-lang">
-          <span class="lang-dot c"></span> Python · TensorFlow
+          <span class="lang-dot c"></span> Python · Django · MySQL
         </div>
         <div class="proj-topics">
-          <span class="topic">sklearn</span>
-          <span class="topic">pandas</span>
-          <span class="topic">gradio</span>
+          <span class="topic">Python</span>
+          <span class="topic">Django</span>
+          <span class="topic">MySQL</span>
+          <span class="topic">HTML/CSS</span>
         </div>
         <div class="proj-link">
-          <a href="https://github.com/dhruvm-04/StockPredictionLSTM" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="https://github.com/dhruvm-04/SocialMediaPlatform" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </article>
       <article class="proj-4" id="pesvirtualtour">
@@ -1462,8 +1465,29 @@ footer {
           <a href="https://pes-virtual-tour.vercel.app/" target="_blank" rel="noopener">Live Demo ↗</a>
         </div>
       </article>
-      <article class="proj-5" id="enginesim3d">
+      <article class="proj-5">
         <div class="b-label">prj_005</div>
+        <div class="proj-head">
+          <div class="proj-name">StockPrediction</div>
+          <div class="proj-stars">Oct 2025</div>
+        </div>
+        <p class="proj-desc">
+          Predicting stock prices over short intervals. Designed a deep-learning tool for financial time-series forecasting with improved predictive accuracy.
+        </p>
+        <div class="proj-lang">
+          <span class="lang-dot c"></span> Python · TensorFlow
+        </div>
+        <div class="proj-topics">
+          <span class="topic">sklearn</span>
+          <span class="topic">pandas</span>
+          <span class="topic">gradio</span>
+        </div>
+        <div class="proj-link">
+          <a href="https://github.com/dhruvm-04/StockPredictionLSTM" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </article>
+      <article class="proj-6" id="enginesim3d">
+        <div class="b-label">prj_006</div>
         <div class="proj-head">
           <div class="proj-name">EngineSim3D</div>
           <div class="proj-stars">Apr 2026</div>
@@ -1710,7 +1734,7 @@ footer {
         </div>
         <div class="social-arrow">↗</div>
       </a>
-      <a href="/public/Resume_DhruvMaheshwari.pdf" target="_blank" rel="noopener" class="social-cell">
+      <a href="/public/Dhruv_Maheshwari_Resume.pdf" target="_blank" rel="noopener" class="social-cell">
         <img src="public/resumeicon.svg" alt="" class="social-icon">
         <div>
           <div class="social-platform">Resume</div>
