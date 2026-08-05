@@ -1378,43 +1378,42 @@ footer {
       <article class="proj-1">
         <div class="b-label">featured // prj_001</div>
         <div class="proj-head">
-          <div class="proj-name">EchoLang</div>
-          <div class="proj-stars">Jul 2025</div>
+          <div class="proj-name">pRAGma</div>
+          <div class="proj-stars">2026</div>
         </div>
         <p class="proj-desc">
-          Real-time multilingual speech translator. Developed an end-to-end ASR → MT → Intent Classification pipeline for code-switched Hindi, Tamil, and English using Whisper, NLLB-200, and Sentence-BERT, systematically evaluated on the Google FLEURS dataset. Focused on easing the issues of blue-collar workers of India.
+          A minimal RAG app where you upload a PDF, let the backend ingest it as chunks and embeddings, then ask questions through direct retrieval or translation modes like multi-query, RAG fusion, decomposition, step-back prompting, and HyDE. Every answer shows the exact chunks retrieved plus latency and token logs, so the grounding is fully auditable.
         </p>
         <div class="proj-lang">
-          <span class="lang-dot rs"></span> Python · PyTorch · OpenAI Whisper
+          <span class="lang-dot c"></span> Python · FastAPI · React
         </div>
         <div class="proj-topics">
-          <span class="topic">speech-recognition</span>
-          <span class="topic">nllb-200</span>
-          <span class="topic">sentence-bert</span>
-          <span class="topic">scipy</span>
-          <span class="topic">transformers</span>
+          <span class="topic">rag</span>
+          <span class="topic">react</span>
+          <span class="topic">fastapi</span>
+          <span class="topic">embeddings</span>
         </div>
         <div class="proj-link">
-          <a href="https://github.com/dhruvm-04/EchoLang" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="https://github.com/dhruvm-04/pRAGma" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </article>
       <article class="proj-2">
         <div class="b-label">prj_002</div>
         <div class="proj-head">
           <div class="proj-name">MusiConvert</div>
-          <div class="proj-stars">Jun 2025</div>
+          <div class="proj-stars">2025</div>
         </div>
         <p class="proj-desc">
-          Built a peer-to-peer playlist transfer system over raw UDP using a custom Selective Repeat ARQ protocol with sliding windows, retransmissions, and cumulative acknowledgments for reliable delivery. Developed a fuzzy-matching engine combining title, artist, and duration similarity to accurately match tracks across platforms.
+          Move playlists between Spotify and YouTube Music, then share them straight to a friend on the same network using encrypted peer-to-peer transfer. Matching is done with fuzzy title/artist scoring and a custom reliable-UDP protocol.
         </p>
         <div class="proj-lang">
-          <span class="lang-dot go"></span> Python · Socket Programming
+          <span class="lang-dot go"></span> Python · asyncio · websockets
         </div>
         <div class="proj-topics">
-          <span class="topic">udp-tcp</span>
+          <span class="topic">spotify</span>
+          <span class="topic">youtube-music</span>
           <span class="topic">fernet</span>
-          <span class="topic">tkinter</span>
-          <span class="topic">multithreading</span>
+          <span class="topic">selective-repeat</span>
         </div>
         <div class="proj-link">
           <a href="https://github.com/dhruvm-04/MusiConvert" target="_blank" rel="noopener">GitHub ↗</a>
@@ -1423,34 +1422,55 @@ footer {
       <article class="proj-3">
         <div class="b-label">prj_003</div>
         <div class="proj-head">
-          <div class="proj-name">SocialMediaPlatform</div>
+          <div class="proj-name">EchoLang</div>
           <div class="proj-stars">2025</div>
         </div>
         <p class="proj-desc">
-          Built a full-stack social media platform with Django and MySQL supporting authentication, posts, comments, likes, and a symmetric friendship model.
-          Enforced data integrity with check/unique constraints and Django-level permission checks, and wrote MySQL triggers, stored procedures, and a stored function (mutual-friends lookup, friend-count, personalized feed generation) to move core relational logic into the database layer.
+          FastAPI app for Hindi, Tamil, and English service requests. It can transcribe audio or analyze text, then returns structured JSON with detected language, translation, intent, confidence, and urgency.
+        </p>
+        <div class="proj-lang">
+          <span class="lang-dot rs"></span> Python · FastAPI · Groq
+        </div>
+        <div class="proj-topics">
+          <span class="topic">speech-to-text</span>
+          <span class="topic">json</span>
+          <span class="topic">intent-classification</span>
+          <span class="topic">urgency</span>
+        </div>
+        <div class="proj-link">
+          <a href="https://github.com/dhruvm-04/EchoLang" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </article>
+      <article class="proj-4">
+        <div class="b-label">prj_004</div>
+        <div class="proj-head">
+          <div class="proj-name">SMP</div>
+          <div class="proj-stars">2025</div>
+        </div>
+        <p class="proj-desc">
+          Built a full-stack social media platform with Django and MySQL supporting authentication, posts, comments, likes, and a symmetric friendship model. Enforced data integrity with check and unique constraints, Django-level permission checks, and database-side logic for mutual-friends lookup, friend counts, and personalized feeds.
         </p>
         <div class="proj-lang">
           <span class="lang-dot c"></span> Python · Django · MySQL
         </div>
         <div class="proj-topics">
-          <span class="topic">Python</span>
-          <span class="topic">Django</span>
-          <span class="topic">MySQL</span>
-          <span class="topic">HTML/CSS</span>
+          <span class="topic">python</span>
+          <span class="topic">django</span>
+          <span class="topic">mysql</span>
+          <span class="topic">html/css</span>
         </div>
         <div class="proj-link">
           <a href="https://github.com/dhruvm-04/SocialMediaPlatform" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </article>
-      <article class="proj-4" id="pesvirtualtour">
-        <div class="b-label">prj_004</div>
+      <article class="proj-5" id="pesvirtualtour">
+        <div class="b-label">prj_005</div>
         <div class="proj-head">
           <div class="proj-name">PESVirtualTour</div>
-          <div class="proj-stars">Oct 2025</div>
+          <div class="proj-stars">2025</div>
         </div>
         <p class="proj-desc">
-          Interactive Three.js digital twin of the PES University EC Engineering Block with first-person traversal, interior exploration, teleport hotspots, and guided navigation flow. Baked an animated simulation of students scattered across the campus building using Blender and Python. Implemented platform-specific controls: pointer-lock + WASD on desktop, swipe-look + virtual joystick on mobile.
+          Interactive Three.js digital twin of the PES University EC Engineering Block with first-person traversal, interior exploration, teleport hotspots, and guided navigation flow. Baked an animated simulation of students scattered across the campus building using Blender and Python.
         </p>
         <div class="proj-lang">
           <span class="lang-dot rs"></span> Three.js · Blender 3D · Python
@@ -1465,32 +1485,11 @@ footer {
           <a href="https://pes-virtual-tour.vercel.app/" target="_blank" rel="noopener">Live Demo ↗</a>
         </div>
       </article>
-      <article class="proj-5">
-        <div class="b-label">prj_005</div>
-        <div class="proj-head">
-          <div class="proj-name">StockPrediction</div>
-          <div class="proj-stars">Oct 2025</div>
-        </div>
-        <p class="proj-desc">
-          Predicting stock prices over short intervals. Designed a deep-learning tool for financial time-series forecasting with improved predictive accuracy.
-        </p>
-        <div class="proj-lang">
-          <span class="lang-dot c"></span> Python · TensorFlow
-        </div>
-        <div class="proj-topics">
-          <span class="topic">sklearn</span>
-          <span class="topic">pandas</span>
-          <span class="topic">gradio</span>
-        </div>
-        <div class="proj-link">
-          <a href="https://github.com/dhruvm-04/StockPredictionLSTM" target="_blank" rel="noopener">GitHub ↗</a>
-        </div>
-      </article>
       <article class="proj-6" id="enginesim3d">
         <div class="b-label">prj_006</div>
         <div class="proj-head">
-          <div class="proj-name">EngineSim3D</div>
-          <div class="proj-stars">Apr 2026</div>
+          <div class="proj-name">enginesim3d</div>
+          <div class="proj-stars">2026</div>
         </div>
         <p class="proj-desc">
           Interactive WebGL-based 3D simulation of a 2000cc car engine modelling the impact of varying oil levels on temperature, performance, and mechanical behavior. Real-time physics-driven visualization covering thermal dynamics, oil degradation modelling, RPM-driven piston/crankshaft kinematics, and dynamic thermal overlays highlighting heat and stress zones.
