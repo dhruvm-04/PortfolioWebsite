@@ -34,6 +34,27 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   cursor: auto;
+  position: relative;
+}
+body.dark-mode {
+  --paper: #151515;
+  --ink: #EDEAE3;
+  --red: #FF2D00;
+  --gray: #A8A39A;
+  --line: rgba(237, 234, 227, 0.14);
+  --line-strong: rgba(237, 234, 227, 0.52);
+  background: var(--paper);
+}
+body.dark-mode .nav { background: rgba(21, 21, 21, 0.86); }
+body.dark-mode .paper-texture { opacity: 0.08; filter: invert(1); }
+.paper-texture {
+  position: absolute;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
 }
 
 ::selection { background: var(--red); color: var(--paper); }
@@ -44,7 +65,7 @@ a { color: inherit; text-decoration: none; }
 .loader {
   position: fixed;
   inset: 0;
-  background: var(--ink);
+  background: #0A0A0A;
   z-index: 10000;
   display: flex;
   flex-direction: column;
@@ -58,10 +79,10 @@ a { color: inherit; text-decoration: none; }
   font-size: clamp(3rem, 12vw, 10.8rem);
   line-height: 0.8;
   letter-spacing: -0.06em;
-  color: var(--paper);
+  color: #EDEAE3;
   margin-bottom: 2rem;
 }
-.loader-mark .logo-dot { color: var(--red); }
+.loader-mark .logo-dot { color: #FF2D00; }
 .loader-bar-wrap {
   position: relative;
   z-index: 2;
@@ -91,7 +112,7 @@ a { color: inherit; text-decoration: none; }
   color: rgba(237, 234, 227, 0.5);
   text-transform: uppercase;
 }
-.loader-meta .pct { color: var(--red); }
+.loader-meta .pct { color: #FF2D00; }
 
 /* ============ NAV ============ */
 .nav {
@@ -118,7 +139,25 @@ a { color: inherit; text-decoration: none; }
 .nav-links {
   display: flex;
   list-style: none;
+  margin-left: auto;
 }
+.theme-toggle {
+  margin-left: 0.9rem;
+  padding: 0.25rem;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s, transform 0.2s ease;
+}
+.theme-toggle:hover {
+  background: transparent;
+  color: var(--red);
+  transform: rotate(18deg) scale(1.1);
+}
+.theme-toggle:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 .nav-link {
   display: flex;
   align-items: center;
@@ -578,82 +617,38 @@ section {
   color: var(--red);
 }
 .exp-row:hover .exp-bullets li { color: rgba(237, 234, 227, 0.6); }
-/* ============ FIRST-ELEMENT DARK STYLE (inverted hover) ============ */
-#about > div > div.bento.about-bento.reveal-stagger > div.about-stack,
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1),
-#extracurricular > div > div.bento.extra-bento.reveal-stagger > a {
+/* Default highlighted cells; hovering any cell temporarily replaces it. */
+#about > div > div.bento.about-bento.reveal-stagger:not(:has(> *:hover)) > div.about-stack,
+#experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1),
+#extracurricular > div > div.bento.extra-bento.reveal-stagger:not(:has(> *:hover)) > a {
   background: var(--ink);
   color: var(--paper);
 }
-#about > div > div.bento.about-bento.reveal-stagger > div.about-stack .b-label {
+#about > div > div.bento.about-bento.reveal-stagger:not(:has(> *:hover)) > div.about-stack .b-label,
+#experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1) .exp-hash {
   color: var(--red);
 }
-#about > div > div.bento.about-bento.reveal-stagger > div.about-stack .tag {
+#about > div > div.bento.about-bento.reveal-stagger:not(:has(> *:hover)) > div.about-stack .tag,
+#experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1) .exp-tag,
+#extracurricular > div > div.bento.extra-bento.reveal-stagger:not(:has(> *:hover)) > a .extra-tag {
   border-color: var(--paper);
+  color: var(--paper);
 }
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) .exp-date,
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) .exp-desc,
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) .exp-bullets li,
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) code,
-#extracurricular > div > div.bento.extra-bento.reveal-stagger > a .extra-role,
-#extracurricular > div > div.bento.extra-bento.reveal-stagger > a .extra-desc {
+#experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1) .exp-desc,
+#experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1) .exp-bullets li,
+#extracurricular > div > div.bento.extra-bento.reveal-stagger:not(:has(> *:hover)) > a .extra-desc {
   color: rgba(237, 234, 227, 0.6);
 }
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) .exp-hash {
-  color: var(--red);
+#experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1) .exp-date,
+#extracurricular > div > div.bento.extra-bento.reveal-stagger:not(:has(> *:hover)) > a .extra-role {
+  color: rgba(237, 234, 227, 0.8);
 }
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1) .exp-tag {
-  border-color: var(--paper);
+#experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1) code {
+  background: rgba(237, 234, 227, 0.1);
   color: var(--paper);
 }
-#extracurricular > div > div.bento.extra-bento.reveal-stagger > a .extra-tag {
-  border-color: var(--paper);
-  color: var(--paper);
-}
-
-/* Swapped hover: these first elements go LIGHT on hover instead of dark */
-#about > div > div.bento.about-bento.reveal-stagger > div.about-stack:hover,
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover,
-#extracurricular > div > div.bento.extra-bento.reveal-stagger > a:hover {
-  background: var(--paper);
-  color: var(--ink);
-}
-#about > div > div.bento.about-bento.reveal-stagger > div.about-stack:hover .b-label {
-  color: var(--red);
-}
-#about > div > div.bento.about-bento.reveal-stagger > div.about-stack:hover .tag {
-  border-color: var(--ink);
-}
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-date {
-  color: var(--ink);
-}
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-desc,
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-bullets li {
-  color: var(--gray);
-}
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover code {
-  background: rgba(10, 10, 10, 0.06);
-  color: var(--ink);
-}
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-hash {
-  color: var(--red);
-}
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-company {
-  color: var(--red);
-}
-#experience > div > div.exp-list.reveal-stagger > div:nth-child(1):hover .exp-tag {
-  border-color: var(--ink);
-  color: var(--ink);
-}
-#extracurricular > div > div.bento.extra-bento.reveal-stagger > a:hover .extra-tag {
-  border-color: var(--red);
-  color: var(--red);
-}
-#extracurricular > div > div.bento.extra-bento.reveal-stagger > a:hover .extra-role {
-  color: var(--red);
-}
-#extracurricular > div > div.bento.extra-bento.reveal-stagger > a:hover .extra-desc {
-  color: var(--gray);
+#extracurricular > div > div.bento.extra-bento.reveal-stagger:not(:has(> *:hover)) > a .extra-desc {
+  color: rgba(237, 234, 227, 0.55);
 }
 
 code {
@@ -693,12 +688,26 @@ code {
 .proj-5 { grid-column: span 4; }
 .proj-6 { grid-column: span 4; }
 
-.proj-1 {
+.projects-bento > .proj-1 {
+  background: var(--red);
+  color: var(--ink);
+}
+.projects-bento > .proj-1 .b-label { color: var(--ink); }
+.projects-bento > .proj-1 .proj-desc { color: rgba(237, 234, 227, 0.85); }
+.projects-bento > .proj-1 .proj-lang { color: rgba(10, 10, 10, 0.75); }
+.projects-bento > .proj-1 .proj-topics { border-top-color: rgba(10, 10, 10, 0.2); }
+.projects-bento > .proj-1 .topic { border-color: rgba(10, 10, 10, 0.35); color: rgba(10, 10, 10, 0.75); }
+.projects-bento > .proj-1 .proj-link a { color: var(--ink); }
+
+.projects-bento:not(:has(> *:hover)) > .proj-6 {
   background: var(--ink);
   color: var(--paper);
 }
-.proj-1 .b-label { color: rgba(237, 234, 227, 0.5); }
-.proj-1:hover { background: var(--red); }
+.projects-bento:not(:has(> *:hover)) > .proj-6 .b-label { color: var(--red); }
+.projects-bento:not(:has(> *:hover)) > .proj-6 .proj-stars { color: rgba(237, 234, 227, 0.5); }
+.projects-bento:not(:has(> *:hover)) > .proj-6 .proj-desc { color: rgba(237, 234, 227, 0.55); }
+.projects-bento:not(:has(> *:hover)) > .proj-6 .proj-topics { border-top-color: rgba(237, 234, 227, 0.15); }
+.projects-bento:not(:has(> *:hover)) > .proj-6 .topic { border-color: rgba(237, 234, 227, 0.2); color: rgba(237, 234, 227, 0.5); }
 
 /* Highlight a project when linked to directly (e.g. from the hackathon card) */
 .bento > *:target {
@@ -738,7 +747,7 @@ code {
   margin-bottom: 1rem;
   max-width: 480px;
 }
-.proj-1 .proj-desc { color: rgba(237, 234, 227, 0.55); font-size: 0.95rem; max-width: 540px; }
+.proj-1 .proj-desc { font-size: 0.95rem; max-width: 540px; }
 .bento > *:hover .proj-desc { color: rgba(237, 234, 227, 0.55); }
 .proj-lang {
   display: flex;
@@ -753,9 +762,9 @@ code {
   width: 8px; height: 8px;
   border-radius: 0;
 }
-.lang-dot.rs { background: #dea584; }
+.lang-dot.rs { background: #FF2D00; }
 .lang-dot.go { background: #00ADD8; }
-.lang-dot.c { background: #f34b7d; }
+.lang-dot.c { background: #FF2D00; }
 .lang-dot.ts { background: #3178c6; }
 .proj-topics {
   display: flex;
@@ -764,7 +773,6 @@ code {
   padding-top: 0.8rem;
   border-top: 1px solid var(--line);
 }
-.proj-1 .proj-topics { border-top-color: rgba(237, 234, 227, 0.15); }
 .bento > *:hover .proj-topics { border-top-color: rgba(237, 234, 227, 0.15); }
 .topic {
   font-family: 'JetBrains Mono', monospace;
@@ -775,7 +783,23 @@ code {
   letter-spacing: 0.03em;
   transition: all 0.15s;
 }
-.proj-1 .topic { border-color: rgba(237, 234, 227, 0.2); color: rgba(237, 234, 227, 0.5); }
+/* Topic tags cascade into a hovered project card. */
+.projects-bento > article:not(.proj-1):hover .topic {
+  animation: topic-stagger-in 0.32s both cubic-bezier(0.16, 1, 0.3, 1);
+}
+.projects-bento > article:not(.proj-1):hover .topic:nth-child(1) { animation-delay: 25ms; }
+.projects-bento > article:not(.proj-1):hover .topic:nth-child(2) { animation-delay: 65ms; }
+.projects-bento > article:not(.proj-1):hover .topic:nth-child(3) { animation-delay: 105ms; }
+.projects-bento > article:not(.proj-1):hover .topic:nth-child(4) { animation-delay: 145ms; }
+.projects-bento > article:not(.proj-1):hover .topic:nth-child(5) { animation-delay: 185ms; }
+.projects-bento > article:not(.proj-1):hover .topic:nth-child(6) { animation-delay: 225ms; }
+@keyframes topic-stagger-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .projects-bento > article:not(.proj-1):hover .topic { animation: none; }
+}
 .proj-link {
   position: absolute;
   bottom: 1.75rem;
@@ -797,25 +821,38 @@ code {
   transition: gap 0.2s;
 }
 .proj-link a:hover { gap: 0.6rem; }
-.proj-1 .proj-link a { color: var(--paper); }
 .bento > *:hover .topic { border-color: rgba(237, 234, 227, 0.2); color: rgba(237, 234, 227, 0.5); }
 .topic:hover { background: var(--red); border-color: var(--red); color: var(--paper) !important; }
 
 /* Featured card turns orange on hover — force dark text so it stays readable */
-.proj-1:hover {
+.bento:has(> *:hover) > *,
+.exp-list:has(> .exp-row:hover) > .exp-row {
+  background: var(--paper);
   color: var(--ink);
 }
-.proj-1:hover .b-label { color: var(--ink); }
-.proj-1:hover .proj-stars { color: rgba(10, 10, 10, 0.6); }
-.proj-1:hover .proj-desc {
+.bento:has(> *:hover) > *:hover,
+.exp-list:has(> .exp-row:hover) > .exp-row:hover {
+  background: var(--ink);
   color: var(--paper);
 }
-.proj-1:hover .proj-lang { color: rgba(10, 10, 10, 0.75); }
-.proj-1:hover .proj-topics { border-top-color: rgba(10, 10, 10, 0.2); }
-.proj-1:hover .topic {
-  border-color: rgba(10, 10, 10, 0.35);
-  color: rgba(10, 10, 10, 0.75);
+.projects-bento:has(> *:hover) > .proj-1,
+.projects-bento:has(> *:hover) > .proj-1:hover {
+  background: var(--red);
+  color: var(--ink);
 }
+/* pRAGma is a fixed orange feature card: hovering it changes nothing. */
+.projects-bento > .proj-1:hover .b-label { color: var(--ink); }
+.projects-bento > .proj-1:hover .proj-stars { color: var(--gray); }
+.projects-bento > .proj-1:hover .proj-desc { color: rgba(237, 234, 227, 0.85); }
+.projects-bento > .proj-1:hover .proj-lang { color: rgba(10, 10, 10, 0.75); }
+.projects-bento > .proj-1:hover .proj-topics { border-top-color: rgba(10, 10, 10, 0.2); }
+.projects-bento > .proj-1:hover .topic,
+.projects-bento > .proj-1 .topic:hover {
+  background: transparent;
+  border-color: rgba(10, 10, 10, 0.35);
+  color: rgba(10, 10, 10, 0.75) !important;
+}
+.projects-bento > .proj-1 .proj-link a:hover { gap: 0.35rem; }
 
 /* ============ PHOTOGRAPHY SHOWCASE ============ */
 .photo-showcase {
@@ -959,6 +996,11 @@ code {
 .lightbox-nav.prev { left: 2rem; }
 .lightbox-nav.next { right: 2rem; }
 .lightbox-close:hover, .lightbox-nav:hover { background: var(--red); border-color: var(--red); }
+body.dark-mode .lightbox-close,
+body.dark-mode .lightbox-nav {
+  color: #EDEAE3;
+  border-color: rgba(237, 234, 227, 0.3);
+}
 
 /* ============ FOOTER ============ */
 footer {
@@ -1099,6 +1141,89 @@ footer {
 }
 
 /* ============ REVEAL ============ */
+/* Dark mode uses a bright active cell with consistently dark content. */
+body.dark-mode .bento:has(> *:hover) > *:hover,
+body.dark-mode .exp-list:has(> .exp-row:hover) > .exp-row:hover,
+body.dark-mode .info-cell:hover,
+body.dark-mode .cta-btn:hover,
+body.dark-mode .nav-link:hover {
+  background: #EDEAE3;
+  color: #0A0A0A;
+}
+body.dark-mode .bento > *:hover .tag,
+body.dark-mode .exp-row:hover .exp-tag,
+body.dark-mode .exp-row:hover code {
+  border-color: #0A0A0A;
+  color: #0A0A0A;
+}
+body.dark-mode .exp-row:hover code { background: rgba(10, 10, 10, 0.06); }
+body.dark-mode .bento > *:hover .extra-tag { border-color: #0A0A0A; color: #0A0A0A; }
+body.dark-mode .bento > *:hover .stat-label,
+body.dark-mode .bento > *:hover .proj-stars,
+body.dark-mode .bento > *:hover .extra-role {
+  color: rgba(10, 10, 10, 0.6);
+}
+body.dark-mode .bento > *:hover .proj-desc,
+body.dark-mode .bento > *:hover .extra-desc,
+body.dark-mode .exp-row:hover .exp-desc,
+body.dark-mode .exp-row:hover .exp-bullets li {
+  color: rgba(10, 10, 10, 0.65);
+}
+body.dark-mode .bento > *:hover .proj-topics { border-top-color: rgba(10, 10, 10, 0.2); }
+body.dark-mode .bento > *:hover .topic { border-color: rgba(10, 10, 10, 0.35); color: rgba(10, 10, 10, 0.75); }
+body.dark-mode .about-bio:hover .about-bio-text { color: #0A0A0A; }
+body.dark-mode .about-bio:hover .about-bio-text code { background: rgba(10, 10, 10, 0.06); color: #0A0A0A; }
+body.dark-mode .exp-row:hover .exp-date { color: rgba(10, 10, 10, 0.8); }
+
+/* Default highlighted cells use the same cream-on-ink treatment in dark mode. */
+body.dark-mode #about > div > div.bento.about-bento.reveal-stagger:not(:has(> *:hover)) > div.about-stack,
+body.dark-mode #experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1),
+body.dark-mode #extracurricular > div > div.bento.extra-bento.reveal-stagger:not(:has(> *:hover)) > a,
+body.dark-mode .projects-bento:not(:has(> *:hover)) > .proj-6 {
+  background: #EDEAE3;
+  color: #0A0A0A;
+}
+body.dark-mode #about > div > div.bento.about-bento.reveal-stagger:not(:has(> *:hover)) > div.about-stack .tag,
+body.dark-mode #experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1) .exp-tag,
+body.dark-mode #extracurricular > div > div.bento.extra-bento.reveal-stagger:not(:has(> *:hover)) > a .extra-tag {
+  border-color: #0A0A0A;
+  color: #0A0A0A;
+}
+body.dark-mode #experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1) .exp-date,
+body.dark-mode #extracurricular > div > div.bento.extra-bento.reveal-stagger:not(:has(> *:hover)) > a .extra-role {
+  color: rgba(10, 10, 10, 0.8);
+}
+body.dark-mode #experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1) .exp-desc,
+body.dark-mode #experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1) .exp-bullets li,
+body.dark-mode #extracurricular > div > div.bento.extra-bento.reveal-stagger:not(:has(> *:hover)) > a .extra-desc,
+body.dark-mode .projects-bento:not(:has(> *:hover)) > .proj-6 .proj-desc {
+  color: rgba(10, 10, 10, 0.65);
+}
+body.dark-mode #experience > div > div.exp-list.reveal-stagger:not(:has(> .exp-row:hover)) > div:nth-child(1) code {
+  background: rgba(10, 10, 10, 0.06);
+  color: #0A0A0A;
+}
+body.dark-mode .projects-bento:not(:has(> *:hover)) > .proj-6 .proj-stars { color: rgba(10, 10, 10, 0.6); }
+body.dark-mode .projects-bento:not(:has(> *:hover)) > .proj-6 .proj-topics { border-top-color: rgba(10, 10, 10, 0.2); }
+body.dark-mode .projects-bento:not(:has(> *:hover)) > .proj-6 .topic { border-color: rgba(10, 10, 10, 0.35); color: rgba(10, 10, 10, 0.75); }
+
+/* Keep the contact footer light in dark mode, matching the main page surface. */
+body.dark-mode footer,
+body.dark-mode .social-cell {
+  background: #EDEAE3;
+  color: #0A0A0A;
+}
+body.dark-mode footer { border-top-color: #0A0A0A; }
+body.dark-mode .footer-title { color: #0A0A0A; }
+body.dark-mode .footer-sub { color: rgba(10, 10, 10, 0.5); }
+body.dark-mode .socials-bento { border-color: rgba(10, 10, 10, 0.15); }
+body.dark-mode .social-cell { border-color: rgba(10, 10, 10, 0.15); }
+body.dark-mode .social-icon { filter: none; }
+body.dark-mode .social-handle { color: rgba(10, 10, 10, 0.5); }
+body.dark-mode .social-cell:hover { background: var(--red); color: #EDEAE3; }
+body.dark-mode .social-cell:hover .social-handle { color: rgba(237, 234, 227, 0.7); }
+body.dark-mode .back-top { color: #0A0A0A; border-color: rgba(10, 10, 10, 0.2); }
+
 .js-enabled .reveal { opacity: 0; }
 .js-enabled .reveal-stagger > * { opacity: 0; }
 .js-enabled .home-name .word { transform: translateY(100%); }
@@ -1138,6 +1263,7 @@ footer {
 </style>
 </head>
 <body class="js-enabled">
+<div class="paper-texture" aria-hidden="true"></div>
 
 <!-- LOADER -->
 <div class="loader" id="loader">
@@ -1162,6 +1288,7 @@ footer {
     <li><a href="#extracurricular" class="nav-link" data-section="extracurricular"><span class="num">05</span> Extra</a></li>
     <li><a href="#connect" class="nav-link" data-section="connect"><span class="num">06</span> Connect</a></li>
   </ul>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Enable dark mode" aria-pressed="false">☾</button>
 </nav>
 
 <!-- HOME -->
@@ -1865,37 +1992,11 @@ function finishLoading() {
   }, 300);
 }
 
-// Preload every marquee image and drive the loader progress off real load state
-const marqueeSrcs = Array.from(new Set(
-  Array.from(document.querySelectorAll('.photo-track img')).map(img => img.getAttribute('src'))
-));
-const totalImages = marqueeSrcs.length;
-let loadedImages = 0;
-
-function onImageSettled() {
-  loadedImages++;
-  progress = totalImages ? (loadedImages / totalImages) * 100 : 100;
-  if (progress >= 100) {
-    progress = 100;
-    loaderPct.textContent = '100%';
-    loaderFill.style.width = '100%';
-    finishLoading();
-  } else {
-    loaderPct.textContent = String(Math.floor(progress)).padStart(3, '0') + '%';
-    loaderFill.style.width = progress + '%';
-  }
-}
-
-if (totalImages === 0) {
-  finishLoading();
-} else {
-  marqueeSrcs.forEach(src => {
-    const img = new Image();
-    img.onload = onImageSettled;
-    img.onerror = onImageSettled;
-    img.src = src;
-  });
-}
+// Let native loading="lazy" handle the marquee images instead of blocking the page on all 40 photos.
+progress = 100;
+loaderPct.textContent = '100%';
+loaderFill.style.width = '100%';
+finishLoading();
 
 // ============ LENIS ============
 let lenis;
@@ -2019,6 +2120,22 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeLightbox();
   if (e.key === 'ArrowLeft') showRelative(-1);
   if (e.key === 'ArrowRight') showRelative(1);
+});
+
+// ============ PERSISTENT DARK MODE ============
+const themeToggle = document.getElementById('themeToggle');
+function setDarkMode(enabled) {
+  document.body.classList.toggle('dark-mode', enabled);
+  themeToggle.textContent = enabled ? '☀' : '☾';
+  themeToggle.setAttribute('aria-label', enabled ? 'Enable light mode' : 'Enable dark mode');
+  themeToggle.setAttribute('aria-pressed', String(enabled));
+  try { localStorage.setItem('portfolio-dark-mode', String(enabled)); } catch (_) {}
+}
+let savedDarkMode = false;
+try { savedDarkMode = localStorage.getItem('portfolio-dark-mode') === 'true'; } catch (_) {}
+setDarkMode(savedDarkMode);
+themeToggle.addEventListener('click', () => {
+  setDarkMode(!document.body.classList.contains('dark-mode'));
 });
 
 // ============ SECTION TRACKING ============
