@@ -143,19 +143,33 @@ a { color: inherit; text-decoration: none; }
 }
 .theme-toggle {
   margin-left: 0.9rem;
-  padding: 0.25rem;
-  border: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
   background: transparent;
   color: var(--ink);
-  font-size: 1.2rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.05rem;
   line-height: 1;
   cursor: pointer;
-  transition: color 0.15s, transform 0.2s ease;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease, transform 0.2s ease;
+}
+.theme-icon {
+  display: inline-block;
+  transform: rotate(-18deg);
+  transition: transform 0.2s ease;
+}
+.theme-toggle[aria-pressed="true"] .theme-icon {
+  transform: rotate(0deg);
 }
 .theme-toggle:hover {
-  background: transparent;
-  color: var(--red);
-  transform: rotate(18deg) scale(1.1);
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--paper);
+  transform: translateY(-1px);
 }
 .theme-toggle:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 .nav-link {
@@ -1288,7 +1302,7 @@ body.dark-mode .back-top { color: #0A0A0A; border-color: rgba(10, 10, 10, 0.2); 
     <li><a href="#extracurricular" class="nav-link" data-section="extracurricular"><span class="num">05</span> Extra</a></li>
     <li><a href="#connect" class="nav-link" data-section="connect"><span class="num">06</span> Connect</a></li>
   </ul>
-  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Enable dark mode" aria-pressed="false">☾</button>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Enable dark mode" aria-pressed="false"><span class="theme-icon">☾</span></button>
 </nav>
 
 <!-- HOME -->
@@ -2126,7 +2140,7 @@ document.addEventListener('keydown', (e) => {
 const themeToggle = document.getElementById('themeToggle');
 function setDarkMode(enabled) {
   document.body.classList.toggle('dark-mode', enabled);
-  themeToggle.textContent = enabled ? '☀' : '☾';
+  themeToggle.querySelector('.theme-icon').textContent = enabled ? '☀' : '☾';
   themeToggle.setAttribute('aria-label', enabled ? 'Enable light mode' : 'Enable dark mode');
   themeToggle.setAttribute('aria-pressed', String(enabled));
   try { localStorage.setItem('portfolio-dark-mode', String(enabled)); } catch (_) {}
