@@ -1236,6 +1236,28 @@ body.dark-mode .projects-bento:not(:has(> *:hover)) > .proj-6 .proj-stars { colo
 body.dark-mode .projects-bento:not(:has(> *:hover)) > .proj-6 .proj-topics { border-top-color: rgba(10, 10, 10, 0.2); }
 body.dark-mode .projects-bento:not(:has(> *:hover)) > .proj-6 .topic { border-color: rgba(10, 10, 10, 0.35); color: rgba(10, 10, 10, 0.75); }
 
+/* Keep the featured pRAGma card unchanged when hovered in dark mode. */
+body.dark-mode .projects-bento > .proj-1:hover,
+body.dark-mode .projects-bento:has(> .proj-1:hover) > .proj-1 {
+  background: var(--red);
+  color: #EDEAE3;
+}
+body.dark-mode .projects-bento > .proj-1:hover .proj-name,
+body.dark-mode .projects-bento > .proj-1:hover .b-label,
+body.dark-mode .projects-bento > .proj-1:hover .proj-link a,
+body.dark-mode .projects-bento > .proj-1:hover .proj-link a:hover {
+  color: #EDEAE3 !important;
+}
+body.dark-mode .projects-bento > .proj-1:hover .proj-stars { color: var(--gray) !important; }
+body.dark-mode .projects-bento > .proj-1:hover .proj-desc { color: rgba(237, 234, 227, 0.85) !important; }
+body.dark-mode .projects-bento > .proj-1:hover .proj-lang { color: rgba(10, 10, 10, 0.75) !important; }
+body.dark-mode .projects-bento > .proj-1:hover .proj-topics { border-top-color: rgba(10, 10, 10, 0.2) !important; }
+body.dark-mode .projects-bento > .proj-1:hover .topic,
+body.dark-mode .projects-bento > .proj-1:hover .topic:hover {
+  border-color: rgba(10, 10, 10, 0.35) !important;
+  color: rgba(10, 10, 10, 0.75) !important;
+}
+
 /* Keep the contact footer light in dark mode, matching the main page surface. */
 body.dark-mode footer,
 body.dark-mode .social-cell {
