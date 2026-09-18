@@ -61,7 +61,7 @@ body.dark-mode .paper-texture { opacity: 0.08; filter: invert(1); }
 
 a { color: inherit; text-decoration: none; }
 
-/* ============ LOADER ============ */
+/* LOADER */
 .loader {
   position: fixed;
   inset: 0;
@@ -114,7 +114,7 @@ a { color: inherit; text-decoration: none; }
 }
 .loader-meta .pct { color: #FF2D00; }
 
-/* ============ NAV ============ */
+/* NAV */
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -199,7 +199,7 @@ a { color: inherit; text-decoration: none; }
   opacity: 0.5;
 }
 
-/* ============ SECTIONS ============ */
+/* SECTIONS */
 section {
   position: relative;
   min-height: 100vh;
@@ -233,7 +233,7 @@ section {
   color: var(--gray);
 }
 
-/* ============ HOME ============ */
+/* HOME */
 #home {
   display: flex;
   align-items: center;
@@ -380,7 +380,7 @@ section {
   opacity: 0.5;
 }
 
-/* ============ BENTO BASE ============ */
+/* BENTO BASE */
 .bento {
   display: grid;
   border-top: 1px solid var(--ink);
@@ -412,7 +412,7 @@ section {
 }
 .b-label::before { content: '// '; color: var(--red); }
 
-/* ============ ABOUT BENTO ============ */
+/* ABOUT BENTO */
 .about-bento {
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: minmax(100px, auto);
@@ -533,7 +533,7 @@ section {
 }
 .now-item strong { font-weight: 600; }
 
-/* ============ EXPERIENCE ============ */
+/* EXPERIENCE */
 .exp-list {
   display: grid;
   border-top: 1px solid var(--ink);
@@ -690,7 +690,7 @@ code {
   transition: all 0.15s;
 }
 
-/* ============ PROJECTS BENTO ============ */
+/* PROJECTS BENTO */
 .projects-bento {
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: minmax(160px, auto);
@@ -883,7 +883,7 @@ code {
 }
 .projects-bento > .proj-1 .proj-link a:hover { gap: 0.35rem; }
 
-/* ============ PHOTOGRAPHY SHOWCASE ============ */
+/* PHOTOGRAPHY SHOWCASE */
 .photo-showcase {
   margin-top: 1px;
 }
@@ -932,7 +932,7 @@ code {
   }
 }
 
-/* ============ EXTRACURRICULAR BENTO ============ */
+/* EXTRACURRICULAR BENTO */
 .extra-bento {
   grid-template-columns: repeat(3, 1fr);
 }
@@ -1031,7 +1031,7 @@ body.dark-mode .lightbox-nav {
   border-color: rgba(237, 234, 227, 0.3);
 }
 
-/* ============ FOOTER ============ */
+/* FOOTER */
 footer {
   background: var(--ink);
   color: var(--paper);
@@ -1169,7 +1169,7 @@ footer {
   border-color: var(--red);
 }
 
-/* ============ REVEAL ============ */
+/* REVEAL */
 /* Dark mode uses a bright active cell with consistently dark content. */
 body.dark-mode .bento:has(> *:hover) > *:hover,
 body.dark-mode .exp-list:has(> .exp-row:hover) > .exp-row:hover,
@@ -1279,7 +1279,7 @@ body.dark-mode .back-top { color: #0A0A0A; border-color: rgba(10, 10, 10, 0.2); 
 .js-enabled .reveal-stagger > * { opacity: 0; }
 .js-enabled .home-name .word { transform: translateY(100%); }
 
-/* ============ RESPONSIVE ============ */
+/* RESPONSIVE */
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .nav { padding: 1rem 1.25rem; }
@@ -1367,8 +1367,8 @@ body.dark-mode .back-top { color: #0A0A0A; border-color: rgba(10, 10, 10, 0.2); 
         <div class="info-val">Agentic AI</div>
       </div>
       <div class="info-cell">
-        <div class="info-key">// Languages</div>
-        <div class="info-val">Python · C</div>
+        <div class="info-key">// Language</div>
+        <div class="info-val">Python</div>
       </div>
       <div class="info-cell">
         <div class="info-key">// Location</div>
@@ -1460,8 +1460,8 @@ body.dark-mode .back-top { color: #0A0A0A; border-color: rgba(10, 10, 10, 0.2); 
         <div class="stat-label">Projects Created</div>
       </div>
       <div class="about-stat-3">
-        <div class="stat-num">6</div>
-        <div class="stat-label">Projects</div>
+        <div class="stat-num">4<span class="suffix">x</span></div>
+        <div class="stat-label">Distinction Awards</div>
       </div>
       <div class="about-stat-4">
         <div class="stat-num">1<span class="suffix"> / 3</span></div>
@@ -1931,7 +1931,7 @@ body.dark-mode .back-top { color: #0A0A0A; border-color: rgba(10, 10, 10, 0.2); 
 </footer>
 
 <script>
-// ============ CURSOR INVERT (hero) ============
+// CURSOR INVERT (hero)
 const cursorInvert = document.getElementById('cursorInvert');
 const homeSection = document.getElementById('home');
 if (cursorInvert && homeSection) {
@@ -2009,7 +2009,7 @@ if (cursorInvert && homeSection) {
   requestAnimationFrame(animateCursor);
 }
 
-// ============ LOADER ============
+// LOADER
 const loader = document.getElementById('loader');
 const loaderFill = document.getElementById('loaderFill');
 const loaderPct = document.getElementById('loaderPct');
@@ -2049,7 +2049,7 @@ loaderPct.textContent = '100%';
 loaderFill.style.width = '100%';
 finishLoading();
 
-// ============ LENIS ============
+// LENIS
 let lenis;
 const initLenis = () => {
   lenis = new Lenis({
@@ -2078,7 +2078,7 @@ const initLenis = () => {
   });
 };
 
-// ============ HOME ENTRANCE ============
+// HOME ENTRANCE
 const animateHomeIn = () => {
   // Clip reveal the name words
   anime({
@@ -2100,7 +2100,7 @@ const animateHomeIn = () => {
   });
 };
 
-// ============ SCROLL REVEAL ============
+// SCROLL REVEAL
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -2173,7 +2173,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') showRelative(1);
 });
 
-// ============ PERSISTENT DARK MODE ============
+// PERSISTENT DARK MODE
 const themeToggle = document.getElementById('themeToggle');
 function setDarkMode(enabled) {
   document.body.classList.toggle('dark-mode', enabled);
@@ -2189,7 +2189,7 @@ themeToggle.addEventListener('click', () => {
   setDarkMode(!document.body.classList.contains('dark-mode'));
 });
 
-// ============ SECTION TRACKING ============
+// SECTION TRACKING
 const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('section, footer');
 
@@ -2206,10 +2206,10 @@ sections.forEach(s => sectionObserver.observe(s));
 </script>
 
 <script>
-/* ════════════════════════════════
+/* 
    HOME — FLOATING WIREFRAME CUBES
    (black strokes, transparent bg)
-   ════════════════════════════════ */
+    */
 (function(){
   const canvas = document.getElementById('homeCubesCanvas');
   if(!canvas) return;
