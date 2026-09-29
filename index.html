@@ -1311,6 +1311,179 @@ body.dark-mode .back-top { color: #0A0A0A; border-color: rgba(10, 10, 10, 0.2); 
     transition-duration: 0.01ms !important;
   }
 }
+
+/* RECOMMENDATION CARD (Acenet) */
+.rec-cell { display: flex; justify-content: flex-end; align-items: flex-end; align-self: end; width: 100%; }
+.rec-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem 0.6rem 0.75rem;
+  border: 1px solid var(--red);
+  background: transparent;
+  color: var(--red);
+  font-family: 'JetBrains Mono', monospace;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.2s ease;
+}
+.rec-btn:hover,
+.rec-btn[aria-expanded="true"] {
+  background: var(--red);
+  color: #EDEAE3;
+}
+.rec-btn:hover { transform: translateY(-1px); }
+.rec-btn:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+.rec-btn-star { font-size: 1rem; line-height: 1; }
+.rec-btn-text { display: flex; flex-direction: column; gap: 0.15rem; }
+.rec-btn-text b {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.exp-row { --rg: 2rem; }
+.rec-panel {
+  grid-column: 3 / -1;
+  margin-top: calc(var(--rg) * -1);
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              margin-top 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0s linear 0.5s;
+}
+.rec-panel.open {
+  grid-template-rows: 1fr;
+  margin-top: 0;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.rec-inner { min-height: 0; overflow: hidden; }
+/* The card keeps its own paper/ink colours so it reads the same whether the row is highlighted or not. */
+.rec-card {
+  position: relative;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-left: 4px solid var(--red);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.rec-panel.open .rec-card {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.12s;
+}
+.rec-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.7rem 1.25rem;
+  border-bottom: 1px solid var(--line-strong);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.rec-top .rec-file::before { content: '// '; color: var(--red); }
+.rec-body {
+  position: relative;
+  padding: 1.75rem 1.75rem 1.5rem 4.25rem;
+}
+.rec-mark {
+  position: absolute;
+  left: 1.25rem;
+  top: 0.55rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 4.5rem;
+  line-height: 1;
+  color: var(--red);
+  user-select: none;
+}
+.rec-quote {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.85rem, 1.15vw, 0.95rem);
+  line-height: 1.75;
+  letter-spacing: -0.005em;
+  max-width: 76ch;
+}
+.rec-quote p { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+.rec-quote p + p { margin-top: 1rem; }
+.rec-quote .rec-salute {
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--gray);
+}
+.rec-sign {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--line-strong);
+}
+.rec-who { flex: 1; min-width: 0; }
+.rec-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.rec-role {
+  margin-top: 0.15rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--red);
+  letter-spacing: 0.03em;
+}
+.rec-social {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.2s ease;
+}
+.rec-social:hover { background: var(--red); border-color: var(--red); color: #EDEAE3; transform: translateY(-1px); }
+.rec-social:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+.rec-close {
+  flex: 0 0 auto;
+  background: none;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  padding: 0.4rem 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.rec-close:hover { background: var(--red); border-color: var(--red); color: #EDEAE3; }
+.rec-close:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+@media (max-width: 900px) {
+  .exp-row { --rg: 0.75rem; }
+  .rec-cell { justify-content: flex-end; }
+  .rec-panel { grid-column: 1 / -1; }
+  .rec-body { padding: 1.5rem 1.25rem 1.25rem 3.25rem; }
+  .rec-mark { left: 0.8rem; font-size: 3.5rem; }
+  .rec-top .rec-meta { display: none; }
+  .rec-sign { flex-wrap: wrap; }
+}
 </style>
 </head>
 <body class="js-enabled">
@@ -1515,7 +1688,46 @@ body.dark-mode .back-top { color: #0A0A0A; border-color: rgba(10, 10, 10, 0.2); 
             <span class="exp-tag">Azure</span>
           </div>
         </div>
-        <div></div>
+        <div class="rec-cell">
+          <button class="rec-btn" id="recBtn" type="button" aria-expanded="false" aria-controls="recPanel">
+            <span class="rec-btn-star" aria-hidden="true">★</span>
+            <span class="rec-btn-text"><b>Letter of<br>Recommendation</b></span>
+          </button>
+        </div>
+
+        <!-- RECOMMENDATION CARD — text is taken verbatim from the letter -->
+        <div class="rec-panel" id="recPanel" role="region" aria-label="Letter of recommendation from the CTO of AceNet Consulting" aria-hidden="true">
+          <div class="rec-inner">
+            <figure class="rec-card">
+              <div class="rec-top">
+                <span class="rec-file">letter_of_recommendation.txt</span>
+                <span class="rec-meta">AceNet Consulting · 31-Aug-2026</span>
+              </div>
+              <div class="rec-body">
+                <span class="rec-mark" aria-hidden="true">&ldquo;</span>
+                <blockquote class="rec-quote">
+                  <p class="rec-salute">To Whom It May Concern</p>
+                  <p>I am pleased to recommend Dhruv Maheshwari, who worked as an Intern - Technology at AceNet Consulting Pvt Ltd from 1-Jun-2026 to 21-Aug-2026.</p>
+                  <p>During his internship, Dhruv served as the primary backend developer for CFO Copilot, a multi-agent, AI-powered Virtual CFO platform engineered to deliver actionable insights in response to natural language queries spanning macroeconomic, industry, and automotive market intelligence.</p>
+                  <p>He developed the core backend architecture using Python, FastAPI, and AWS Bedrock, building data ingestion and analytics pipelines, integrating LLM-based reasoning agents, and implementing intelligent query routing across specialized domains. He also worked on REST APIs, scenario analysis, confidence scoring, and grounding mechanisms to improve the reliability of generated outputs.</p>
+                  <p>Throughout the internship, Dhruv consistently demonstrated a level of maturity and professionalism well beyond expectations for someone at this stage of their career. His sincerity in approaching every task, whether routine or challenging, earned the trust and respect of the entire team. Dhruv repeatedly showcased strong problem-solving skills, breaking down complex technical issues and working through them methodically rather than seeking shortcuts. What stood out most was his initiative, he did not wait to be told what to do, often identifying gaps or inefficiencies and proposing solutions on his own. Combined with an exceptional work ethic, arriving prepared, meeting deadlines, and going the extra mile when needed; Dhruv became a reliable and valued contributor. Equally important was his ability to collaborate effectively; his teamwork was evident in how well he communicated with colleagues, accepted feedback gracefully, and contributed to a positive group dynamic. I have no doubt Dhruv will bring the same qualities to any future role.</p>
+                  <p>I believe this experience has given Dhruv exposure to the actual work environment in the corporate world, something that he will benefit from tremendously. I wish him well in his studies and future endeavours and am hopeful that we will get an opportunity to work together sometime in the future.</p>
+                  <p>Please feel free to reach out should you require any further information.</p>
+                </blockquote>
+              </div>
+              <figcaption class="rec-sign">
+                <div class="rec-who">
+                  <div class="rec-name" id="recName">Vasanth Rao</div>
+                  <div class="rec-role">Chief Technology Officer | AceNet Consulting Pvt. Ltd.</div>
+                </div>
+                <a class="rec-social" href="https://www.linkedin.com/in/vasanthsrao/" target="_blank" rel="noopener noreferrer" aria-label="Vasanth Rao on LinkedIn" title="Vasanth Rao on LinkedIn">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <button class="rec-close" id="recClose" type="button">Close &#10005;</button>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
       </div>
       <div class="exp-row">
         <div class="exp-index"><span class="red">02</span></div>
@@ -2174,6 +2386,37 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') showRelative(-1);
   if (e.key === 'ArrowRight') showRelative(1);
 });
+
+// RECOMMENDATION CARD (Acenet)
+(function () {
+  const btn = document.getElementById('recBtn');
+  const panel = document.getElementById('recPanel');
+  const closeBtn = document.getElementById('recClose');
+  if (!btn || !panel) return;
+
+  function setOpen(open) {
+    panel.classList.toggle('open', open);
+    panel.setAttribute('aria-hidden', String(!open));
+    btn.setAttribute('aria-expanded', String(open));
+    if (open) {
+      // Keep the whole card in view once it has finished expanding.
+      setTimeout(() => {
+        const r = panel.getBoundingClientRect();
+        if (r.bottom > window.innerHeight - 20) {
+          const y = window.scrollY + r.bottom - window.innerHeight + 40;
+          if (typeof lenis !== 'undefined' && lenis) lenis.scrollTo(y);
+          else window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 450);
+    }
+  }
+
+  btn.addEventListener('click', () => setOpen(!panel.classList.contains('open')));
+  closeBtn.addEventListener('click', () => { setOpen(false); btn.focus(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panel.classList.contains('open')) setOpen(false);
+  });
+})();
 
 // PERSISTENT DARK MODE
 const themeToggle = document.getElementById('themeToggle');
