@@ -1194,6 +1194,21 @@ footer {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .social-cell:hover .social-arrow { transform: translate(4px, -4px); }
+button.resume-cell { color: inherit; font: inherit; text-align: left; border-top: 0; border-left: 0; width: 100%; }
+.resume-cell > span { position: relative; z-index: 1; }
+.resume-cell .social-platform, .resume-cell .social-handle { display: block; }
+.resume-dialog { margin: auto; width: min(480px, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; padding: 2rem; background: var(--paper); color: var(--ink); border: 1px solid var(--ink); box-shadow: 0 24px 80px rgba(0,0,0,0.3); }
+.resume-dialog::backdrop { background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); }
+.resume-dialog-close { display: block; margin: 0 0 1.5rem auto; min-height: 44px; padding: 0.5rem 0.75rem; background: transparent; color: inherit; border: 1px solid currentColor; font: inherit; cursor: pointer; }
+.resume-dialog h2 { font-size: 1.7rem; line-height: 1.2; margin-bottom: 0.75rem; }
+.resume-dialog p { font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem; }
+.resume-options { display: grid; gap: 0.75rem; }
+.resume-options a { display: block; padding: 1rem; border: 1px solid currentColor; color: inherit; }
+.resume-options strong, .resume-options span { display: block; }
+.resume-options span { font-size: 0.75rem; margin-top: 0.4rem; }
+.resume-options a:hover { background: var(--red); color: #EDEAE3; }
+.resume-cell:focus-visible, .resume-dialog :focus-visible { outline: 2px solid var(--red); outline-offset: -4px; }
+html:has(.resume-dialog[open]) { overflow: hidden; }
 .footer-bottom {
   display: flex;
   justify-content: space-between;
@@ -2248,14 +2263,14 @@ body.dark-mode .back-top { color: #0A0A0A; border-color: rgba(10, 10, 10, 0.2); 
         </div>
         <div class="social-arrow">↗</div>
       </a>
-      <a href="/public/Dhruv_Maheshwari_Resume.pdf" target="_blank" rel="noopener" class="social-cell">
+      <button type="button" class="social-cell resume-cell" id="resumeButton" aria-haspopup="dialog" aria-controls="resumeDialog">
         <img src="public/resumeicon.svg" alt="" class="social-icon">
-        <div>
-          <div class="social-platform">Resume</div>
-          <div class="social-handle">Have a look at my Resume</div>
-        </div>
-        <div class="social-arrow">↗</div>
-      </a>
+        <span>
+          <span class="social-platform">Resume</span>
+          <span class="social-handle">Have a look at my Resume</span>
+        </span>
+        <span class="social-arrow" aria-hidden="true">&#8599;</span>
+      </button>
     </div>
     <div class="footer-bottom">
       <div>© 2026 Dhruv Maheshwari · <span class="red">All systems operational</span></div>
@@ -2264,7 +2279,34 @@ body.dark-mode .back-top { color: #0A0A0A; border-color: rgba(10, 10, 10, 0.2); 
   </div>
 </footer>
 
+<dialog class="resume-dialog" id="resumeDialog" aria-labelledby="resumeDialogTitle" aria-describedby="resumeDialogDescription">
+  <button type="button" class="resume-dialog-close" id="resumeDialogClose" autofocus>Close &#10005;</button>
+  <h2 id="resumeDialogTitle">Which role or focus interests you?</h2>
+  <p id="resumeDialogDescription">Choose a resume tailored to the opportunity you have in mind.</p>
+  <div class="resume-options">
+    <a href="public/Dhruv_Maheshwari_Resume_SWE.pdf" download>
+      <strong>Software Engineering</strong>
+      <span>Download SWE resume (PDF) &#8595;</span>
+    </a>
+    <a href="public/Dhruv_Maheshwari_Resume_AI.pdf" download>
+      <strong>AI / Machine Learning</strong>
+      <span>Download AI resume (PDF) &#8595;</span>
+    </a>
+  </div>
+</dialog>
+
 <script>
+// Native modal supports keyboard focus and Escape dismissal.
+const resumeDialog = document.getElementById('resumeDialog');
+document.getElementById('resumeButton').addEventListener('click', () => resumeDialog.showModal());
+document.getElementById('resumeDialogClose').addEventListener('click', () => resumeDialog.close());
+resumeDialog.addEventListener('click', (event) => {
+  const bounds = resumeDialog.getBoundingClientRect();
+  if (event.target === resumeDialog &&
+      (event.clientX < bounds.left || event.clientX > bounds.right ||
+       event.clientY < bounds.top || event.clientY > bounds.bottom)) resumeDialog.close();
+  if (event.target.closest('.resume-options a')) resumeDialog.close();
+});
 // CURSOR INVERT (hero)
 const cursorInvert = document.getElementById('cursorInvert');
 const homeSection = document.getElementById('home');
