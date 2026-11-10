@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Photography and collected resources by Dhruv Maheshwari.">
+<title>Extracurricular â€” Dhruv Maheshwari</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #EDEAE3;
+  --ink: #0A0A0A;
+  --red: #FF2D00;
+  --gray: #8A8780;
+  --line: rgba(10, 10, 10, 0.12);
+  --line-strong: rgba(10, 10, 10, 0.5);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+body.dark-mode {
+  --paper: #151515;
+  --ink: #EDEAE3;
+  --gray: #A8A39A;
+  --line: rgba(237, 234, 227, 0.14);
+  --line-strong: rgba(237, 234, 227, 0.52);
+}
+body.dark-mode .nav { background: rgba(21, 21, 21, 0.86); }
+body.dark-mode .paper-texture { opacity: 0.08; filter: invert(1); }
+::selection { background: var(--red); color: #EDEAE3; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+.paper-texture {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+.container { max-width: 1400px; margin: 0 auto; }
+
+/* NAV â€” same typography, borders, and theme control as the portfolio */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 2rem;
+  border-bottom: 1px solid var(--ink);
+  background: rgba(237, 234, 227, 0.85);
+  backdrop-filter: blur(10px);
+}
+.nav-logo { font-weight: 800; font-size: 0.85rem; letter-spacing: -0.02em; }
+.logo-dot { color: var(--red); }
+.nav-links { display: flex; list-style: none; margin: 0 0 0 auto; padding: 0; }
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-left: 1px solid var(--line);
+  color: var(--gray);
+  font: 0.65rem 'JetBrains Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-links li:last-child .nav-link { border-right: 1px solid var(--line); }
+.nav-link:hover { background: var(--ink); color: var(--paper); }
+.nav-link.active { color: var(--red); }
+.nav-link .num { margin-right: 0.4rem; opacity: 0.5; }
+.theme-toggle {
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+.theme-toggle:hover { background: var(--red); border-color: var(--red); color: #EDEAE3; }
+
+/* SECTIONS */
+main { overflow: hidden; }
+section { padding: 6rem 2rem; scroll-margin-top: 5rem; }
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  font: 0.65rem 'JetBrains Mono', monospace;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.section-label .num { color: var(--red); font-weight: 600; }
+.section-label .sep, .section-label .meta { color: var(--gray); }
+.section-label .name { font-weight: 500; }
+.section-label .line { flex: 1; height: 1px; background: var(--ink); }
+.eyebrow { color: var(--red); font: 0.65rem 'JetBrains Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase; }
+.intro { padding-top: clamp(5rem, 12vw, 10rem); padding-bottom: 5rem; }
+.intro-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(230px, 0.6fr); align-items: end; gap: 3rem; }
+h1 { max-width: 1000px; margin: 1.5rem 0 0; font-size: clamp(4.2rem, 12vw, 11rem); font-weight: 900; line-height: 0.82; letter-spacing: -0.075em; }
+h1 span { color: var(--red); }
+.intro-aside { max-width: 30ch; margin: 0 0 0.35rem auto; color: var(--gray); font-size: clamp(0.9rem, 1.3vw, 1.08rem); }
+.intro-index { display: flex; justify-content: space-between; margin-top: 5rem; padding-top: 0.8rem; border-top: 1px solid var(--ink); color: var(--gray); font: 0.62rem 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; }
+.section-heading { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 2rem; }
+.section-heading h2 { margin: 0; font-size: clamp(2.7rem, 6.5vw, 6rem); line-height: 0.9; letter-spacing: -0.06em; }
+.section-heading p { max-width: 34ch; margin: 0 0 0.25rem; color: var(--gray); font-size: 0.9rem; }
+
+/* PHOTOGRAPHY SHOWCASE â€” layout and animation copied from index.html */
+.photo-scroll { overflow: hidden; border: 1px solid var(--ink); background: var(--ink); }
+.photo-track {
+  display: grid;
+  grid-template-rows: repeat(4, 150px);
+  grid-auto-flow: column dense;
+  grid-auto-columns: 120px;
+  gap: 1px;
+  width: max-content;
+  animation: photo-marquee 120s linear infinite;
+  will-change: transform;
+  contain: layout style paint;
+}
+@keyframes photo-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.photo-item { contain: layout paint; cursor: pointer; border: 0; padding: 0; background: transparent; overflow: hidden; }
+.photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.photo-item:hover img { transform: scale(1.06); }
+.photo-item.wide { grid-column: span 2; }
+.photo-item.tall { grid-row: span 2; }
+.photo-item.big { grid-row: span 2; grid-column: span 2; }
+.photo-scroll:hover .photo-track, .photo-scroll:focus-within .photo-track { animation-play-state: paused; }
+.photo-meta { display: flex; justify-content: space-between; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--line-strong); color: var(--gray); font: 0.62rem 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* RESOURCE SPACE â€” ready for the owner's selected links */
+.resources { padding-bottom: 9rem; }
+.resource-panel { display: grid; grid-template-columns: 1fr 1fr; min-height: 300px; border: 1px solid var(--ink); }
+.resource-panel-lead { display: flex; flex-direction: column; justify-content: space-between; gap: 3rem; padding: clamp(1.5rem, 4vw, 3rem); background: var(--ink); color: var(--paper); }
+.resource-panel-lead .eyebrow { color: var(--red); }
+.resource-panel-lead p { max-width: 23ch; margin: 0; font-size: clamp(1.5rem, 3.3vw, 3.3rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.045em; }
+.resource-panel-detail { display: flex; flex-direction: column; justify-content: space-between; gap: 4rem; padding: clamp(1.5rem, 4vw, 3rem); }
+.resource-panel-detail p { max-width: 38ch; margin: 0; color: var(--gray); font-size: 0.9rem; line-height: 1.7; }
+.resource-panel-detail span { color: var(--red); font: 0.65rem 'JetBrains Mono', monospace; letter-spacing: 0.12em; text-transform: uppercase; }
+
+/* LIGHTBOX */
+.lightbox { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 3rem; background: rgba(10, 10, 10, 0.94); }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
+.lightbox-close, .lightbox-nav { position: absolute; border: 1px solid rgba(237, 234, 227, 0.3); background: none; color: #EDEAE3; font-family: 'JetBrains Mono', monospace; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+.lightbox-close { top: 2rem; right: 2rem; padding: 0.5rem 0.9rem; font-size: 0.9rem; }
+.lightbox-nav { top: 50%; transform: translateY(-50%); padding: 0.75rem 1rem; font-size: 1rem; }
+.lightbox-nav.prev { left: 2rem; }
+.lightbox-nav.next { right: 2rem; }
+.lightbox-close:hover, .lightbox-nav:hover { background: var(--red); border-color: var(--red); }
+.lightbox-counter { position: absolute; bottom: 1.25rem; left: 50%; transform: translateX(-50%); color: rgba(237, 234, 227, 0.7); font: 0.65rem 'JetBrains Mono', monospace; letter-spacing: 0.12em; }
+body.lightbox-open { overflow: hidden; }
+
+footer { padding: 2rem; border-top: 1px solid var(--ink); background: var(--ink); color: var(--paper); }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+.footer-name { font-weight: 800; font-size: clamp(1.4rem, 4vw, 3rem); letter-spacing: -0.06em; }
+.footer-back { padding: 0.8rem 1rem; border: 1px solid rgba(237, 234, 227, 0.4); font: 0.65rem 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; }
+.footer-back:hover { background: var(--red); border-color: var(--red); }
+body.dark-mode footer { background: #EDEAE3; color: #0A0A0A; }
+body.dark-mode .footer-back { border-color: rgba(10, 10, 10, 0.35); }
+
+@media (max-width: 900px) {
+  .nav { padding: 1rem 1.25rem; }
+  section { padding: 5rem 1.25rem; }
+  .intro-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .intro-aside { margin-left: 0; }
+  .photo-track { grid-template-rows: repeat(3, 101px); grid-auto-columns: 110px; }
+}
+@media (max-width: 600px) {
+  .nav { gap: 0.5rem; }
+  .nav-links { margin-left: auto; }
+  .nav-link { padding: 0.5rem 0.4rem; font-size: 0.54rem; }
+  .nav-link .num { display: none; }
+  .section-label .meta { display: none; }
+  .section-heading { display: block; }
+  .section-heading p { margin-top: 1rem; }
+  .resource-panel { grid-template-columns: 1fr; }
+  .intro-index { margin-top: 3rem; }
+  .lightbox { padding: 1rem; }
+  .lightbox img { max-width: 100%; max-height: 72vh; }
+  .lightbox-close { top: 1rem; right: 1rem; }
+  .lightbox-nav { top: auto; bottom: 1rem; transform: none; }
+  .lightbox-nav.prev { left: 1rem; }
+  .lightbox-nav.next { right: 1rem; }
+  .footer-inner { align-items: start; flex-direction: column; }
+  footer { padding: 2rem 1.25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+  .photo-track { animation: none; }
+  .photo-scroll { overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+<div class="paper-texture" aria-hidden="true"></div>
+<nav class="nav" aria-label="Page navigation">
+  <a href="index.html" class="nav-logo" aria-label="Dhruv Maheshwari, return to portfolio">DM<span class="logo-dot">.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="nav-link"><span class="num">01</span> Portfolio</a></li>
+    <li><a href="#photography" class="nav-link active"><span class="num">02</span> Photos</a></li>
+    <li><a href="#resources" class="nav-link"><span class="num">03</span> Resources</a></li>
+  </ul>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Enable dark mode" aria-pressed="false"><span class="theme-icon">â˜¾</span></button>
+</nav>
+
+<main>
+  <section class="intro" aria-labelledby="page-title">
+    <div class="container">
+      <div class="section-label"><span class="num">[05]</span><span class="sep">/</span><span class="name">Extracurricular</span><span class="line"></span><span class="meta">cd ~/outside-work</span></div>
+      <div class="intro-grid">
+        <h1 id="page-title">Outside<br>the work<span>.</span></h1>
+        <p class="intro-aside">A space for what I notice, make, and collect beyond the usual project list.</p>
+      </div>
+      <div class="intro-index"><span>Dhruv Maheshwari / Selected photographs</span><span>Scroll to explore â†“</span></div>
+    </div>
+  </section>
+
+  <section id="photography" aria-labelledby="photography-title">
+    <div class="container">
+      <div class="section-label"><span class="num">[01]</span><span class="sep">/</span><span class="name">Photography</span><span class="line"></span><span class="meta">ls ~/gallery</span></div>
+      <div class="section-heading"><h2 id="photography-title">Through my lens<span class="logo-dot">.</span></h2><p>Frames from the photography collection. Select a photo to view it in full.</p></div>
+      <div class="photo-scroll" aria-label="Scrolling photography gallery">
+        <div class="photo-track">
+                <button class="photo-item" type="button" data-idx="0"><img src="public/photo01.jpg" alt="Photography 01" loading="lazy" decoding="async"></button>
+      <button class="photo-item wide" type="button" data-idx="1"><img src="public/photo02.jpg" alt="Photography 02" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="2"><img src="public/photo03.jpg" alt="Photography 03" loading="lazy" decoding="async"></button>
+      <button class="photo-item tall" type="button" data-idx="3"><img src="public/photo04.jpg" alt="Photography 04" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="4"><img src="public/photo05.jpg" alt="Photography 05" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="5"><img src="public/photo06.jpg" alt="Photography 06" loading="lazy" decoding="async"></button>
+      <button class="photo-item big" type="button" data-idx="6"><img src="public/photo07.jpg" alt="Photography 07" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="7"><img src="public/photo08.jpg" alt="Photography 08" loading="lazy" decoding="async"></button>
+      <button class="photo-item wide" type="button" data-idx="8"><img src="public/photo09.jpg" alt="Photography 09" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="9"><img src="public/photo10.jpg" alt="Photography 10" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="10"><img src="public/photo11.jpg" alt="Photography 11" loading="lazy" decoding="async"></button>
+      <button class="photo-item wide" type="button" data-idx="11"><img src="public/photo12.jpg" alt="Photography 12" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="12"><img src="public/photo13.jpg" alt="Photography 13" loading="lazy" decoding="async"></button>
+      <button class="photo-item tall" type="button" data-idx="13"><img src="public/photo14.jpg" alt="Photography 14" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="14"><img src="public/photo15.jpg" alt="Photography 15" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="15"><img src="public/photo16.jpg" alt="Photography 16" loading="lazy" decoding="async"></button>
+      <button class="photo-item big" type="button" data-idx="16"><img src="public/photo17.jpg" alt="Photography 17" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="17"><img src="public/photo18.jpg" alt="Photography 18" loading="lazy" decoding="async"></button>
+      <button class="photo-item wide" type="button" data-idx="18"><img src="public/photo19.jpg" alt="Photography 19" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="19"><img src="public/photo20.jpg" alt="Photography 20" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="20"><img src="public/photo21.jpg" alt="Photography 21" loading="lazy" decoding="async"></button>
+      <button class="photo-item wide" type="button" data-idx="21"><img src="public/photo22.jpg" alt="Photography 22" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="22"><img src="public/photo23.jpg" alt="Photography 23" loading="lazy" decoding="async"></button>
+      <button class="photo-item tall" type="button" data-idx="23"><img src="public/photo24.jpg" alt="Photography 24" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="24"><img src="public/photo25.jpg" alt="Photography 25" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="25"><img src="public/photo26.jpg" alt="Photography 26" loading="lazy" decoding="async"></button>
+      <button class="photo-item big" type="button" data-idx="26"><img src="public/photo27.jpg" alt="Photography 27" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="27"><img src="public/photo28.jpg" alt="Photography 28" loading="lazy" decoding="async"></button>
+      <button class="photo-item wide" type="button" data-idx="28"><img src="public/photo29.jpg" alt="Photography 29" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="29"><img src="public/photo30.jpg" alt="Photography 30" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="30"><img src="public/photo31.jpg" alt="Photography 31" loading="lazy" decoding="async"></button>
+      <button class="photo-item wide" type="button" data-idx="31"><img src="public/photo32.jpg" alt="Photography 32" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="32"><img src="public/photo33.jpg" alt="Photography 33" loading="lazy" decoding="async"></button>
+      <button class="photo-item tall" type="button" data-idx="33"><img src="public/photo34.jpg" alt="Photography 34" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="34"><img src="public/photo35.jpg" alt="Photography 35" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="35"><img src="public/photo36.jpg" alt="Photography 36" loading="lazy" decoding="async"></button>
+      <button class="photo-item big" type="button" data-idx="36"><img src="public/photo37.jpg" alt="Photography 37" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="37"><img src="public/photo38.jpg" alt="Photography 38" loading="lazy" decoding="async"></button>
+      <button class="photo-item wide" type="button" data-idx="38"><img src="public/photo39.jpg" alt="Photography 39" loading="lazy" decoding="async"></button>
+      <button class="photo-item" type="button" data-idx="39"><img src="public/photo40.jpg" alt="Photography 40" loading="lazy" decoding="async"></button>
+      <div class="photo-item" data-idx="0" aria-hidden="true"><img src="public/photo01.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item wide" data-idx="1" aria-hidden="true"><img src="public/photo02.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="2" aria-hidden="true"><img src="public/photo03.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item tall" data-idx="3" aria-hidden="true"><img src="public/photo04.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="4" aria-hidden="true"><img src="public/photo05.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="5" aria-hidden="true"><img src="public/photo06.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item big" data-idx="6" aria-hidden="true"><img src="public/photo07.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="7" aria-hidden="true"><img src="public/photo08.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item wide" data-idx="8" aria-hidden="true"><img src="public/photo09.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="9" aria-hidden="true"><img src="public/photo10.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="10" aria-hidden="true"><img src="public/photo11.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item wide" data-idx="11" aria-hidden="true"><img src="public/photo12.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="12" aria-hidden="true"><img src="public/photo13.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item tall" data-idx="13" aria-hidden="true"><img src="public/photo14.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="14" aria-hidden="true"><img src="public/photo15.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="15" aria-hidden="true"><img src="public/photo16.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item big" data-idx="16" aria-hidden="true"><img src="public/photo17.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="17" aria-hidden="true"><img src="public/photo18.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item wide" data-idx="18" aria-hidden="true"><img src="public/photo19.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="19" aria-hidden="true"><img src="public/photo20.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="20" aria-hidden="true"><img src="public/photo21.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item wide" data-idx="21" aria-hidden="true"><img src="public/photo22.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="22" aria-hidden="true"><img src="public/photo23.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item tall" data-idx="23" aria-hidden="true"><img src="public/photo24.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="24" aria-hidden="true"><img src="public/photo25.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="25" aria-hidden="true"><img src="public/photo26.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item big" data-idx="26" aria-hidden="true"><img src="public/photo27.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="27" aria-hidden="true"><img src="public/photo28.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item wide" data-idx="28" aria-hidden="true"><img src="public/photo29.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="29" aria-hidden="true"><img src="public/photo30.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="30" aria-hidden="true"><img src="public/photo31.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item wide" data-idx="31" aria-hidden="true"><img src="public/photo32.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="32" aria-hidden="true"><img src="public/photo33.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item tall" data-idx="33" aria-hidden="true"><img src="public/photo34.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="34" aria-hidden="true"><img src="public/photo35.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="35" aria-hidden="true"><img src="public/photo36.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item big" data-idx="36" aria-hidden="true"><img src="public/photo37.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="37" aria-hidden="true"><img src="public/photo38.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item wide" data-idx="38" aria-hidden="true"><img src="public/photo39.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="photo-item" data-idx="39" aria-hidden="true"><img src="public/photo40.jpg" alt="" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+      <div class="photo-meta"><span>40 photographs</span><span>Hover or focus to pause Â· Select to view</span></div>
+    </div>
+  </section>
+
+  <section class="resources" id="resources" aria-labelledby="resources-title">
+    <div class="container">
+      <div class="section-label"><span class="num">[02]</span><span class="sep">/</span><span class="name">Resources</span><span class="line"></span><span class="meta">cat ~/bookmarks</span></div>
+      <div class="section-heading"><h2 id="resources-title">The collection<span class="logo-dot">.</span></h2><p>Useful things I come back to, collected in one place.</p></div>
+      <div class="resource-panel">
+        <div class="resource-panel-lead"><span class="eyebrow">Field notes / 02</span><p>Tools, references, and ideas worth keeping close.</p></div>
+        <div class="resource-panel-detail"><p>This collection is taking shape. Iâ€™ll add links here as I choose the resources I want to share.</p><span>Collection in progress â†—</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="lightbox" id="marqueeLightbox" role="dialog" aria-modal="true" aria-label="Photograph viewer" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close photograph viewer">Close âœ•</button>
+  <button class="lightbox-nav prev" id="lightboxPrev" type="button" aria-label="Previous image">â†</button>
+  <img id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav next" id="lightboxNext" type="button" aria-label="Next image">â†’</button>
+  <span class="lightbox-counter" id="lightboxCounter" aria-live="polite"></span>
+</div>
+
+<footer><div class="container footer-inner"><span class="footer-name">DM<span class="logo-dot">.</span></span><a class="footer-back" href="index.html">â† Back to portfolio</a></div></footer>
+
+<script>
+const photoSources = Array.from({ length: 40 }, (_, i) => `public/photo${String(i + 1).padStart(2, '0')}.jpg`);
+const lightbox = document.getElementById('marqueeLightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxCounter = document.getElementById('lightboxCounter');
+const lightboxClose = document.getElementById('lightboxClose');
+let lightboxIdx = 0;
+let previousFocus = null;
+
+function showPhoto(index) {
+  lightboxIdx = (index + photoSources.length) % photoSources.length;
+  lightboxImg.src = photoSources[lightboxIdx];
+  lightboxImg.alt = `Photography ${String(lightboxIdx + 1).padStart(2, '0')}`;
+  lightboxCounter.textContent = `${String(lightboxIdx + 1).padStart(2, '0')} / ${photoSources.length}`;
+}
+function openLightbox(index) {
+  previousFocus = document.activeElement;
+  showPhoto(index);
+  lightbox.classList.add('active');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('lightbox-open');
+  lightboxClose.focus();
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('lightbox-open');
+  lightboxImg.removeAttribute('src');
+  if (previousFocus) previousFocus.focus();
+}
+document.querySelectorAll('.photo-item[data-idx]').forEach(item => {
+  item.addEventListener('click', () => openLightbox(Number(item.dataset.idx)));
+});
+lightboxClose.addEventListener('click', closeLightbox);
+document.getElementById('lightboxPrev').addEventListener('click', () => showPhoto(lightboxIdx - 1));
+document.getElementById('lightboxNext').addEventListener('click', () => showPhoto(lightboxIdx + 1));
+lightbox.addEventListener('click', event => { if (event.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', event => {
+  if (!lightbox.classList.contains('active')) return;
+  if (event.key === 'Escape') closeLightbox();
+  if (event.key === 'ArrowLeft') showPhoto(lightboxIdx - 1);
+  if (event.key === 'ArrowRight') showPhoto(lightboxIdx + 1);
+  if (event.key === 'Tab') {
+    const controls = [lightboxClose, document.getElementById('lightboxPrev'), document.getElementById('lightboxNext')];
+    const current = controls.indexOf(document.activeElement);
+    if (event.shiftKey && current === 0) { event.preventDefault(); controls[controls.length - 1].focus(); }
+    if (!event.shiftKey && current === controls.length - 1) { event.preventDefault(); controls[0].focus(); }
+  }
+});
+
+const themeToggle = document.getElementById('themeToggle');
+function setDarkMode(enabled) {
+  document.body.classList.toggle('dark-mode', enabled);
+  themeToggle.querySelector('.theme-icon').textContent = enabled ? 'â˜€' : 'â˜¾';
+  themeToggle.setAttribute('aria-label', enabled ? 'Enable light mode' : 'Enable dark mode');
+  themeToggle.setAttribute('aria-pressed', String(enabled));
+  try { localStorage.setItem('portfolio-dark-mode', String(enabled)); } catch (_) {}
+}
+let savedDarkMode = false;
+try { savedDarkMode = localStorage.getItem('portfolio-dark-mode') === 'true'; } catch (_) {}
+setDarkMode(savedDarkMode);
+themeToggle.addEventListener('click', () => setDarkMode(!document.body.classList.contains('dark-mode')));
+</script>
+</body>
+</html>

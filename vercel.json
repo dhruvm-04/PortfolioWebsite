@@ -4,8 +4,26 @@
   "framework": null,
   "outputDirectory": ".",
   "cleanUrls": true,
-  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/echolang",
+      "destination": "/echolang/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
+    {
+      "source": "/echolang/",
+      "destination": "https://echolanggnani.onrender.com/"
+    },
+    {
+      "source": "/echolang/presentation",
+      "destination": "https://echolanggnani.onrender.com/presentation.html"
+    },
+    {
+      "source": "/echolang/:path*",
+      "destination": "https://echolanggnani.onrender.com/:path*"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"

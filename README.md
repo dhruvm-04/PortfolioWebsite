@@ -40,6 +40,8 @@ Then open `http://localhost:8000` in your browser.
 
 This project is configured for Vercel through `vercel.json`. Connect the repository to Vercel or deploy the static folder directly.
 
+EchoLang is served at `/echolang/` through Vercel rewrites to `https://echolanggnani.onrender.com`. Keep its rewrites before the portfolio catchall rule. The `/echolang` redirect adds the trailing slash required by EchoLang's relative assets, so leave the global `trailingSlash` setting unset. Check `/echolang/api/health` after a portfolio deployment.
+
 ## Notes
 
 This repository is intended to be the source of truth for the portfolio hosted at `PortfolioWebsite`.
